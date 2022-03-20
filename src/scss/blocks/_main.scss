@@ -1,0 +1,52 @@
+.main {
+  margin-top: 60px;
+  &__populars {
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 152px);
+    gap: 20px;
+    justify-content: center;
+    .item {
+      list-style-type: none;
+      &__img {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+          -23px 0 20px -23px rgba(0, 0, 0, 0.8),
+          23px 0 20px -23px rgba(0, 0, 0, 0.8),
+          0 0 40px rgba(0, 0, 0, 0.1) inset;
+        img {
+          width: 100%;
+        }
+      }
+      &__title {
+        display: inline;
+        color: black;
+        padding-top: 3px;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 16px;
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      &__info {
+        display: flex;
+      }
+      &__releasedata,
+      &__country {
+        padding-top: 2px;
+        line-height: 14px;
+        font-size: 11px;
+        color: #848484;
+        span:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      &__releasedata:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

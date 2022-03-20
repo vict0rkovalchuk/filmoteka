@@ -1,0 +1,42 @@
+.container {
+  padding: 0 !important;
+}
+
+.popularfilms-slider {
+  padding: 10px 0 5px 0;
+  .item {
+    // padding: 0;
+    img {
+      margin: 0 auto;
+      width: 162px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+        -23px 0 20px -23px rgba(0, 0, 0, 0.8),
+        23px 0 20px -23px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    }
+  }
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+    li {
+      margin: 0 0.25rem;
+      button {
+        display: block;
+        width: 0.6rem;
+        height: 0.6rem;
+        padding: 0;
+        border: none;
+        border-radius: 100%;
+        background-color: #0d2637;
+        text-indent: -9999px;
+      }
+    }
+    li.slick-active button {
+      // background-color: #2772a5;
+      background-color: #2f364a;
+      border: 3px solid #0d2637;
+    }
+  }
+}
