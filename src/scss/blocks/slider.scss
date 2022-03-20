@@ -30,13 +30,15 @@
         border: none;
         border-radius: 100%;
         background-color: #0d2637;
+        // background-color: #2f364a;
+        // border: 3px solid #0d2637;
         text-indent: -9999px;
       }
     }
     li.slick-active button {
-      // background-color: #2772a5;
       background-color: #2f364a;
       border: 3px solid #0d2637;
+      // background-color: #0d2637;
     }
   }
 }
