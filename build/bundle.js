@@ -1,53 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 568:
-/***/ ((module) => {
-
-var placeholderRegex = /xxxxREPLACExxxx[0-9\.]+xxxx/g;
-
-function getPlaceholder() {
-  return 'xxxxREPLACExxxx' + Math.random() + 'xxxx';
-}
-
-function replaceWithPlaceholders(str, replacements) {
-  var content = [str];
-  var placeholderMap = {};
-
-  for (var i = replacements.length - 1, repl; repl = replacements[i--];) {
-    do {
-      var placeholder = getPlaceholder();
-    } while(placeholderMap[placeholder]);
-    placeholderMap[placeholder] = repl.value;
-
-    var x = content.pop();
-    content.push(x.substr(repl.start + repl.length));
-    content.push(placeholder);
-    content.push(x.substr(0, repl.start));
-  }
-  content.reverse();
-
-  return {
-    content: content.join(""),
-    placeholderMap: placeholderMap
-  };
-}
-
-module.exports = function (str, replacements, replaceFn) {
-  var withPlaceholders = replaceWithPlaceholders(str, replacements);
-  var placeholderMap = withPlaceholders.placeholderMap;
-
-  placeholderRegex.lastIndex = 0;
-  return withPlaceholders.content.replace(placeholderRegex, function(match) {
-    var origValue = placeholderMap[match];
-    if (!origValue) return match;
-    return replaceFn(origValue);
-  });
-};
-
-
-/***/ }),
-
 /***/ 755:
 /***/ (function(module, exports) {
 
@@ -21463,8 +21416,6 @@ var slick_update = injectStylesIntoStyleTag_default()((slick_slick_default()), s
 
 
 /* harmony default export */ const slick_carousel_slick_slick = ((slick_slick_default()).locals || {});
-// EXTERNAL MODULE: ./node_modules/handlebars-loader/lib/fastreplace.js
-var fastreplace = __webpack_require__(568);
 // EXTERNAL MODULE: ./node_modules/jquery/dist/jquery.js
 var jquery = __webpack_require__(755);
 var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
@@ -21474,7 +21425,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 
 
 
@@ -21498,12 +21448,21 @@ var PopularFilms = /*#__PURE__*/function () {
         var ul = document.querySelector('.main .main__populars');
         data.results.forEach(function (film) {
           var movieTitle;
+          var fullMovieTitle;
           var movieReleaseData;
 
           if (film.original_title) {
             movieTitle = film.original_title;
+            fullMovieTitle = movieTitle;
           } else {
             movieTitle = film.original_name;
+            fullMovieTitle = movieTitle;
+          }
+
+          if (fullMovieTitle.length > 25) {
+            fullMovieTitle = movieTitle.slice(0, 23) + '...';
+          } else {
+            fullMovieTitle;
           }
 
           if (film.release_date) {
@@ -21512,7 +21471,7 @@ var PopularFilms = /*#__PURE__*/function () {
             movieReleaseData = film.first_air_date;
           }
 
-          ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\">").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+          ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img \n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\"  data-title=\"").concat(movieTitle, "\">").concat(fullMovieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\">").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
         });
       })["catch"](function (err) {
         return alert(err);
@@ -21529,20 +21488,12 @@ var PopularFilms = /*#__PURE__*/function () {
         console.log(data);
         var slick = document.querySelector('.popularfilms-slider');
         data.results.splice(0, 12).forEach(function (film) {
-          slick.innerHTML += " <div class=\"item\"><img src=\"".concat(_this2.bgImgLink + film.poster_path, "\" alt=\"img\" /></div>");
+          slick.innerHTML += " <div class=\"item\"><img src='".concat(_this2.bgImgLink + film.poster_path, "' alt='img'/></div>");
         });
         jquery_default()('.popularfilms-slider').slick({
           autoplay: true,
           autoplaySpeed: 3000,
           arrows: false,
-          // focusOnSelect: true,
-          // lazyLoad: 'progressive',
-          // pauseOnHover: false,
-          // pauseOnDotsHover: true,
-          // rows: 2,
-          // swipe: true,
-          // variableWidth: true,
-          // vertical: true,
           dots: true,
           speed: 800,
           slidesToShow: 6,
@@ -21551,26 +21502,22 @@ var PopularFilms = /*#__PURE__*/function () {
           responsive: [{
             breakpoint: 1400,
             settings: {
-              slidesToShow: 6 // slidesToShow: 5
-
+              slidesToShow: 6
             }
           }, {
             breakpoint: 1200,
             settings: {
-              slidesToShow: 5 // slidesToShow: 4
-
+              slidesToShow: 5
             }
           }, {
             breakpoint: 992,
             settings: {
-              slidesToShow: 4 // slidesToShow: 3
-
+              slidesToShow: 4
             }
           }, {
             breakpoint: 768,
             settings: {
-              slidesToShow: 3 // slidesToShow: 2
-
+              slidesToShow: 3
             }
           }, {
             breakpoint: 576,
