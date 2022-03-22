@@ -21416,24 +21416,19 @@ var slick_update = injectStylesIntoStyleTag_default()((slick_slick_default()), s
 
 
 /* harmony default export */ const slick_carousel_slick_slick = ((slick_slick_default()).locals || {});
-// EXTERNAL MODULE: ./node_modules/jquery/dist/jquery.js
-var jquery = __webpack_require__(755);
-var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
-;// CONCATENATED MODULE: ./src/js/default-page-landing.js
+;// CONCATENATED MODULE: ./src/js/defaultFilms.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-
-
 var PopularFilms = /*#__PURE__*/function () {
-  function PopularFilms(url, bgImgLink) {
+  function PopularFilms(weeksUrl, bgImgLink, filmsByYearLink) {
     _classCallCheck(this, PopularFilms);
 
-    this.url = url;
-    this.bgImgLink = bgImgLink;
+    this.weeksUrl = weeksUrl;
+    this.bgImgLink = bgImgLink; // this.filmsByYearLink = filmsByYearLink;
   }
 
   _createClass(PopularFilms, [{
@@ -21441,54 +21436,122 @@ var PopularFilms = /*#__PURE__*/function () {
     value: function renderFilmsPage() {
       var _this = this;
 
-      fetch(this.url).then(function (res) {
+      fetch(this.weeksUrl).then(function (res) {
         return res.json();
       }).then(function (data) {
-        console.log(data);
+        // console.log(data);
         var ul = document.querySelector('.main .main__populars');
         data.results.forEach(function (film) {
           var movieTitle;
-          var fullMovieTitle;
           var movieReleaseData;
-
-          if (film.original_title) {
-            movieTitle = film.original_title;
-            fullMovieTitle = movieTitle;
-          } else {
-            movieTitle = film.original_name;
-            fullMovieTitle = movieTitle;
-          }
-
-          if (fullMovieTitle.length > 25) {
-            fullMovieTitle = movieTitle.slice(0, 23) + '...';
-          } else {
-            fullMovieTitle;
-          }
-
-          if (film.release_date) {
-            movieReleaseData = film.release_date;
-          } else {
-            movieReleaseData = film.first_air_date;
-          }
-
-          ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img \n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\"  data-title=\"").concat(movieTitle, "\">").concat(fullMovieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\">").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
-        });
+          film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
+          film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
+          ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img \n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+        }); // this.renderFilmsByYear();
       })["catch"](function (err) {
         return alert(err);
       });
-    }
+    } // renderFilmsByYear() {
+    //   document.querySelectorAll('.item__releasedata').forEach(item => {
+    //     item.addEventListener('click', event => {
+    //       fetch(
+    //         `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=${event.currentTarget.dataset.release}`
+    //       )
+    //         .then(res => res.json())
+    //         .then(data => {
+    //           console.log(this.url);
+    //           console.log(data);
+    //           let ul = document.querySelector('.main .main__populars');
+    //           ul.innerHTML = '';
+    //           data.results.forEach(film => {
+    //             let movieTitle;
+    //             let movieReleaseData;
+    //             film.original_title
+    //               ? (movieTitle = film.original_title)
+    //               : (movieTitle = film.original_name);
+    //             film.release_date
+    //               ? (movieReleaseData = film.release_date)
+    //               : (movieReleaseData = film.first_air_date);
+    //             ul.innerHTML += `<li class="item">
+    //             <div class="item__img">
+    //               <img
+    //                 src="${this.bgImgLink + film.poster_path}"
+    //                 alt="img"
+    //               />
+    //             </div>
+    //             <div class="item__descr">
+    //               <div class="item__title">${movieTitle}</div>
+    //               <div class="item__info">
+    //                 <div class="item__releasedata" data-release='${new Date(
+    //                   movieReleaseData
+    //                 ).getFullYear()}'>${new Date(
+    //               movieReleaseData
+    //             ).getFullYear()},&ensp;</div>
+    //                 <div class="item__country">
+    //               Rating: ${film.vote_average}/10
+    //                 </div>
+    //               </div>
+    //             </div>
+    //           </li>`;
+    //           });
+    //           document.querySelector(
+    //             '.main .container'
+    //           ).innerHTML += `<div class="pagination">
+    //           <button id="prev">Prev</button>
+    //           <input type="number" name="pageNumber" id="" min="1" />
+    //           <span> of </span>
+    //           <span class="page-amount"></span>
+    //           <button id="next">Next</button>
+    //         </div>`;
+    //         })
+    //         .catch(err => alert(err));
+    //     });
+    //   });
+    // }
+
   }, {
+    key: "init",
+    value: function init() {
+      this.renderFilmsPage();
+    }
+  }]);
+
+  return PopularFilms;
+}();
+
+
+// EXTERNAL MODULE: ./node_modules/jquery/dist/jquery.js
+var jquery = __webpack_require__(755);
+var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
+;// CONCATENATED MODULE: ./src/js/sliderHeader.js
+function sliderHeader_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function sliderHeader_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function sliderHeader_createClass(Constructor, protoProps, staticProps) { if (protoProps) sliderHeader_defineProperties(Constructor.prototype, protoProps); if (staticProps) sliderHeader_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Slider = /*#__PURE__*/function () {
+  function Slider(dayUrl, bgImgLink) {
+    sliderHeader_classCallCheck(this, Slider);
+
+    this.dayUrl = dayUrl;
+    this.bgImgLink = bgImgLink;
+  }
+
+  sliderHeader_createClass(Slider, [{
     key: "renderSliderFilms",
     value: function renderSliderFilms() {
-      var _this2 = this;
+      var _this = this;
 
-      fetch(this.url).then(function (res) {
+      fetch(this.dayUrl).then(function (res) {
         return res.json();
       }).then(function (data) {
-        console.log(data);
+        // console.log(data);
         var slick = document.querySelector('.popularfilms-slider');
         data.results.splice(0, 12).forEach(function (film) {
-          slick.innerHTML += " <div class=\"item\"><img src='".concat(_this2.bgImgLink + film.poster_path, "' alt='img'/></div>");
+          slick.innerHTML += " <div class=\"item\"><img src='".concat(_this.bgImgLink + film.poster_path, "' alt='img'/></div>");
         });
         jquery_default()('.popularfilms-slider').slick({
           autoplay: true,
@@ -21541,11 +21604,50 @@ var PopularFilms = /*#__PURE__*/function () {
     key: "init",
     value: function init() {
       this.renderSliderFilms();
-      this.renderFilmsPage();
     }
   }]);
 
-  return PopularFilms;
+  return Slider;
+}();
+
+
+;// CONCATENATED MODULE: ./src/js/dropdownGenres.js
+function dropdownGenres_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function dropdownGenres_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function dropdownGenres_createClass(Constructor, protoProps, staticProps) { if (protoProps) dropdownGenres_defineProperties(Constructor.prototype, protoProps); if (staticProps) dropdownGenres_defineProperties(Constructor, staticProps); return Constructor; }
+
+var DropdownGenres = /*#__PURE__*/function () {
+  function DropdownGenres(genresLink) {
+    dropdownGenres_classCallCheck(this, DropdownGenres);
+
+    this.genresLink = genresLink;
+  }
+
+  dropdownGenres_createClass(DropdownGenres, [{
+    key: "renderGenresDropdown",
+    value: function renderGenresDropdown() {
+      fetch(this.genresLink).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        // console.log(data);
+        var ulGenres = document.querySelector('.genres .dropdown-menu');
+        data.genres.forEach(function (genre) {
+          ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\">".concat(genre.name, "</a></li>");
+        });
+      })["catch"](function (err) {
+        return alert(err);
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.renderGenresDropdown();
+    }
+  }]);
+
+  return DropdownGenres;
 }();
 
 
@@ -21557,21 +21659,24 @@ var PopularFilms = /*#__PURE__*/function () {
 
 
 
-var url = 'https://api.themoviedb.org/3/trending/all/day?api_key=fb2d223cbf586b1c9599530eaa26a8db';
+
+
+var API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
+var weeksUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=".concat(API_KEY);
 var bgImgLink = "https://image.tmdb.org/t/p/w500/";
-new PopularFilms(url, bgImgLink).init(); // * ID searching
+var filmsByYearLink = "https://api.themoviedb.org/3/discover/movie?api_key=".concat(API_KEY, "&year=");
+new PopularFilms(weeksUrl, bgImgLink, filmsByYearLink).init();
+var dayUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=".concat(API_KEY);
+new Slider(dayUrl, bgImgLink).init();
+var genresLink = "https://api.themoviedb.org/3/genre/movie/list?api_key=".concat(API_KEY);
+new DropdownGenres(genresLink).init(); // * ID searching
 // 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
 
 {
   /* <div class="item__country">
   <span>Испания</span>, <span>Аргентина</span>
   </div> */
-} // * Needed
-// fetch(
-//   'https://api.themoviedb.org/3/genre/movie/list?api_key=fb2d223cbf586b1c9599530eaa26a8db'
-// )
-//   .then(res => res.json())
-//   .then(data => console.log(data));
+}
 })();
 
 /******/ })()
