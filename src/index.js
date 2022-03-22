@@ -10,11 +10,11 @@ import Slider from './js/sliderHeader';
 import DropdownGenres from './js/dropdownGenres';
 
 let API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
-let weeksUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}`;
+let weekUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&page=`;
 let bgImgLink = `https://image.tmdb.org/t/p/w500/`;
 let filmsByYearLink = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&year=`;
 
-new PopularFilms(weeksUrl, bgImgLink, filmsByYearLink).init();
+new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
 
 let dayUrl = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`;
 new Slider(dayUrl, bgImgLink).init();
