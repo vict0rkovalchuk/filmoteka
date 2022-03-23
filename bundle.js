@@ -21704,6 +21704,19 @@ new DropdownGenres(genresLink).init(); // * ID searching
   <span>Испания</span>, <span>Аргентина</span>
   </div> */
 }
+document.querySelector('.dropdown-toggle').addEventListener('click', function (e) {
+  e.target.classList.toggle('toggle-arrow');
+});
+window.addEventListener('click', function (e) {
+  if (e.target !== document.querySelector('.dropdown-toggle')) {
+    // if (
+    //   document.querySelector('.dropdown-toggle').classList.contains('toggle-arrow')
+    // ) {
+    //   document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
+    // }
+    document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
+  }
+});
 })();
 
 /******/ })()
