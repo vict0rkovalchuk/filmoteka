@@ -6,4 +6,11 @@
   span.net {
     color: #ad9454;
   }
+  .dropdown {
+    .toggle-arrow {
+      &:after {
+        transform: rotate(180deg) !important;
+      }
+    }
+  }
 }

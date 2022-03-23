@@ -30,3 +30,18 @@ new DropdownGenres(genresLink).init();
 <span>Испания</span>, <span>Аргентина</span>
 </div> */
 }
+
+document.querySelector('.dropdown-toggle').addEventListener('click', e => {
+  e.target.classList.toggle('toggle-arrow');
+});
+
+window.addEventListener('click', e => {
+  if (e.target !== document.querySelector('.dropdown-toggle')) {
+    // if (
+    //   document.querySelector('.dropdown-toggle').classList.contains('toggle-arrow')
+    // ) {
+    //   document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
+    // }
+    document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
+  }
+});

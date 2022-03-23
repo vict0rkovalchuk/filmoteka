@@ -21424,11 +21424,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var PopularFilms = /*#__PURE__*/function () {
-  function PopularFilms(weeksUrl, bgImgLink, filmsByYearLink) {
+  function PopularFilms(weekUrl, bgImgLink, filmsByYearLink) {
     _classCallCheck(this, PopularFilms);
 
-    this.weeksUrl = weeksUrl;
-    this.bgImgLink = bgImgLink; // this.filmsByYearLink = filmsByYearLink;
+    this.weekUrl = weekUrl;
+    this.bgImgLink = bgImgLink;
+    this.counter = 1; // this.filmsByYearLink = filmsByYearLink;
   }
 
   _createClass(PopularFilms, [{
@@ -21436,10 +21437,9 @@ var PopularFilms = /*#__PURE__*/function () {
     value: function renderFilmsPage() {
       var _this = this;
 
-      fetch(this.weeksUrl).then(function (res) {
+      fetch(this.weekUrl + this.counter).then(function (res) {
         return res.json();
       }).then(function (data) {
-        // console.log(data);
         var ul = document.querySelector('.main .main__populars');
         data.results.forEach(function (film) {
           var movieTitle;
@@ -21447,9 +21447,36 @@ var PopularFilms = /*#__PURE__*/function () {
           film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
           film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
           ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img \n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
-        }); // this.renderFilmsByYear();
+        });
+        ul.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
+
+        _this.loadMoreFilms(); // this.renderFilmsByYear();
+
       })["catch"](function (err) {
         return alert(err);
+      });
+    }
+  }, {
+    key: "loadMoreFilms",
+    value: function loadMoreFilms() {
+      var _this2 = this;
+
+      document.querySelector('.button-item button').addEventListener('click', function () {
+        _this2.counter++;
+        fetch(_this2.weekUrl + _this2.counter).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          var btnItem = document.querySelector('.button-item');
+          data.results.forEach(function (film) {
+            var movieTitle;
+            var movieReleaseData;
+            film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
+            film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
+            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                <div class=\"item__img\">\n                  <img \n                    src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                    alt=\"img\"\n                  />\n                </div>\n                <div class=\"item__descr\">\n                  <div class=\"item__title\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
+          });
+        })["catch"](function (err) {
+          return alert(err);
+        });
       });
     } // renderFilmsByYear() {
     //   document.querySelectorAll('.item__releasedata').forEach(item => {
@@ -21662,10 +21689,10 @@ var DropdownGenres = /*#__PURE__*/function () {
 
 
 var API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
-var weeksUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=".concat(API_KEY);
+var weekUrl = "https://api.themoviedb.org/3/trending/all/week?api_key=".concat(API_KEY, "&page=");
 var bgImgLink = "https://image.tmdb.org/t/p/w500/";
 var filmsByYearLink = "https://api.themoviedb.org/3/discover/movie?api_key=".concat(API_KEY, "&year=");
-new PopularFilms(weeksUrl, bgImgLink, filmsByYearLink).init();
+new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
 var dayUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=".concat(API_KEY);
 new Slider(dayUrl, bgImgLink).init();
 var genresLink = "https://api.themoviedb.org/3/genre/movie/list?api_key=".concat(API_KEY);
