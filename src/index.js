@@ -37,11 +37,12 @@ document.querySelector('.dropdown-toggle').addEventListener('click', e => {
 
 window.addEventListener('click', e => {
   if (e.target !== document.querySelector('.dropdown-toggle')) {
-    // if (
-    //   document.querySelector('.dropdown-toggle').classList.contains('toggle-arrow')
-    // ) {
-    //   document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
-    // }
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
   }
 });
+
+// fetch(
+//   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
+// )
+//   .then(res => res.json())
+//   .then(data => console.log(data));
