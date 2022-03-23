@@ -21416,23 +21416,191 @@ var slick_update = injectStylesIntoStyleTag_default()((slick_slick_default()), s
 
 
 /* harmony default export */ const slick_carousel_slick_slick = ((slick_slick_default()).locals || {});
-;// CONCATENATED MODULE: ./src/js/defaultFilms.js
+// EXTERNAL MODULE: ./node_modules/jquery/dist/jquery.js
+var jquery = __webpack_require__(755);
+var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
+;// CONCATENATED MODULE: ./src/js/filmsByYear.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+
+var releaseData = null;
+
+var FilmsByYear = /*#__PURE__*/function () {
+  function FilmsByYear(filmsByYearLink, bgImgLink) {
+    _classCallCheck(this, FilmsByYear);
+
+    this.url = filmsByYearLink;
+    this.bgImgLink = bgImgLink;
+    this.list = document.querySelector('.main .main__populars');
+    this.prevButton = document.querySelector('#prev');
+    this.nextButton = document.querySelector('#next');
+    this.input = document.querySelector('.pagination input');
+    this.span = document.querySelector('.page-amount');
+    this.counter = 1;
+  }
+
+  _createClass(FilmsByYear, [{
+    key: "fetchDefaultFilms",
+    value: function fetchDefaultFilms() {
+      var _this = this;
+
+      document.querySelectorAll('.item__releasedata').forEach(function (item) {
+        item.addEventListener('click', function (event) {
+          releaseData = event.currentTarget.dataset.release;
+
+          _this.fetchFilms(_this.url, releaseData, _this.counter);
+        });
+      });
+    }
+  }, {
+    key: "fetchFilms",
+    value: function fetchFilms(url, releaseData, counter) {
+      var _this2 = this;
+
+      // document.querySelectorAll('.item__releasedata').forEach(item => {
+      //   item.addEventListener('click', event => {
+      // fetch(
+      //   `${this.url + event.currentTarget.dataset.release}&page=${this.counter}`
+      // )
+      fetch("".concat(url + releaseData, "&page=").concat(counter)) // fetch(
+      //   `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=2021&page=${this.counter}`
+      // )
+      .then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        console.log(data); // `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`;
+        // console.log(data);
+        // let ul = document.querySelector('.main .main__populars');
+
+        _this2.list.innerHTML = '';
+
+        _this2.renderFilms(data.results);
+
+        jquery_default()('.pagination').css('display', 'block');
+
+        _this2.renderPagination(data);
+      })["catch"](function (err) {
+        return console.log(err);
+      }); //   });
+      // });
+    }
+  }, {
+    key: "renderFilms",
+    value: function renderFilms(arrResults) {
+      var _this3 = this;
+
+      this.list.innerHTML = '';
+      arrResults.forEach(function (film) {
+        var movieTitle;
+        var movieReleaseData;
+        film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
+        film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
+        _this3.list.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n          alt=\"").concat(movieTitle, "\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+      });
+    }
+  }, {
+    key: "renderPagination",
+    value: function renderPagination(response) {
+      var total_pages = response.total_pages,
+          page = response.page;
+      this.input.setAttribute('max', total_pages);
+
+      if (this.counter === 1 || this.counter < 1) {
+        this.prevButton.setAttribute('disabled', true);
+      } else {
+        this.prevButton.removeAttribute('disabled');
+      }
+
+      if (this.counter === total_pages || this.counter > total_pages) {
+        this.nextButton.setAttribute('disabled', true);
+      } else {
+        this.nextButton.removeAttribute('disabled');
+      }
+
+      this.span.textContent = total_pages;
+      this.input.value = page;
+    }
+  }, {
+    key: "nextPage",
+    value: function nextPage() {
+      this.counter += 1;
+      console.log(releaseData);
+      this.fetchFilms("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=", releaseData, this.counter);
+      this.input.value = this.counter;
+    }
+  }, {
+    key: "prevPage",
+    value: function prevPage() {
+      this.counter -= 1;
+      this.fetchFilms("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=", releaseData, this.counter);
+      this.input.value = this.counter;
+    }
+  }, {
+    key: "inputChange",
+    value: function inputChange(event) {
+      var inputValue = +event.target.value;
+
+      if ((inputValue < this.input.getAttribute('min') || inputValue > this.input.getAttribute('max')) && inputValue) {
+        alert("Value must be between ".concat(this.input.getAttribute('min'), " and ").concat(this.input.getAttribute('max'), ", including them"));
+      } else {
+        this.counter = +inputValue;
+      }
+
+      if (!inputValue) {
+        return;
+      } else {
+        if (this.counter < 1) {
+          return;
+        } else if (this.counter > this.input.getAttribute('max')) {
+          return;
+        } else {
+          this.fetchFilms("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=", releaseData, this.counter);
+        }
+      }
+    }
+  }, {
+    key: "addListeners",
+    value: function addListeners() {
+      this.nextButton.addEventListener('click', this.nextPage.bind(this));
+      this.prevButton.addEventListener('click', this.prevPage.bind(this));
+      this.input.addEventListener('input', this.inputChange.bind(this)); // window.addEventListener('load', this.fetchNews.bind(this));
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.addListeners();
+    }
+  }]);
+
+  return FilmsByYear;
+}();
+
+
+new FilmsByYear().init();
+;// CONCATENATED MODULE: ./src/js/defaultFilms.js
+function defaultFilms_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function defaultFilms_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function defaultFilms_createClass(Constructor, protoProps, staticProps) { if (protoProps) defaultFilms_defineProperties(Constructor.prototype, protoProps); if (staticProps) defaultFilms_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
 var PopularFilms = /*#__PURE__*/function () {
   function PopularFilms(weekUrl, bgImgLink, filmsByYearLink) {
-    _classCallCheck(this, PopularFilms);
+    defaultFilms_classCallCheck(this, PopularFilms);
 
     this.weekUrl = weekUrl;
     this.bgImgLink = bgImgLink;
-    this.counter = 1; // this.filmsByYearLink = filmsByYearLink;
+    this.counter = 1;
+    this.filmsByYearLink = filmsByYearLink;
   }
 
-  _createClass(PopularFilms, [{
+  defaultFilms_createClass(PopularFilms, [{
     key: "renderFilmsPage",
     value: function renderFilmsPage() {
       var _this = this;
@@ -21450,8 +21618,9 @@ var PopularFilms = /*#__PURE__*/function () {
         });
         ul.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
 
-        _this.loadMoreFilms(); // this.renderFilmsByYear();
+        _this.loadMoreFilms();
 
+        new FilmsByYear(_this.filmsByYearLink, _this.bgImgLink).fetchDefaultFilms();
       })["catch"](function (err) {
         return alert(err);
       });
@@ -21474,68 +21643,12 @@ var PopularFilms = /*#__PURE__*/function () {
             film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
             btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                <div class=\"item__img\">\n                  <img \n                    src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                    alt=\"img\"\n                  />\n                </div>\n                <div class=\"item__descr\">\n                  <div class=\"item__title\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
           });
+          new FilmsByYear(_this2.filmsByYearLink, _this2.bgImgLink).fetchDefaultFilms();
         })["catch"](function (err) {
           return alert(err);
         });
       });
-    } // renderFilmsByYear() {
-    //   document.querySelectorAll('.item__releasedata').forEach(item => {
-    //     item.addEventListener('click', event => {
-    //       fetch(
-    //         `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=${event.currentTarget.dataset.release}`
-    //       )
-    //         .then(res => res.json())
-    //         .then(data => {
-    //           console.log(this.url);
-    //           console.log(data);
-    //           let ul = document.querySelector('.main .main__populars');
-    //           ul.innerHTML = '';
-    //           data.results.forEach(film => {
-    //             let movieTitle;
-    //             let movieReleaseData;
-    //             film.original_title
-    //               ? (movieTitle = film.original_title)
-    //               : (movieTitle = film.original_name);
-    //             film.release_date
-    //               ? (movieReleaseData = film.release_date)
-    //               : (movieReleaseData = film.first_air_date);
-    //             ul.innerHTML += `<li class="item">
-    //             <div class="item__img">
-    //               <img
-    //                 src="${this.bgImgLink + film.poster_path}"
-    //                 alt="img"
-    //               />
-    //             </div>
-    //             <div class="item__descr">
-    //               <div class="item__title">${movieTitle}</div>
-    //               <div class="item__info">
-    //                 <div class="item__releasedata" data-release='${new Date(
-    //                   movieReleaseData
-    //                 ).getFullYear()}'>${new Date(
-    //               movieReleaseData
-    //             ).getFullYear()},&ensp;</div>
-    //                 <div class="item__country">
-    //               Rating: ${film.vote_average}/10
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           </li>`;
-    //           });
-    //           document.querySelector(
-    //             '.main .container'
-    //           ).innerHTML += `<div class="pagination">
-    //           <button id="prev">Prev</button>
-    //           <input type="number" name="pageNumber" id="" min="1" />
-    //           <span> of </span>
-    //           <span class="page-amount"></span>
-    //           <button id="next">Next</button>
-    //         </div>`;
-    //         })
-    //         .catch(err => alert(err));
-    //     });
-    //   });
-    // }
-
+    }
   }, {
     key: "init",
     value: function init() {
@@ -21547,9 +21660,6 @@ var PopularFilms = /*#__PURE__*/function () {
 }();
 
 
-// EXTERNAL MODULE: ./node_modules/jquery/dist/jquery.js
-var jquery = __webpack_require__(755);
-var jquery_default = /*#__PURE__*/__webpack_require__.n(jquery);
 ;// CONCATENATED MODULE: ./src/js/sliderHeader.js
 function sliderHeader_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -21658,10 +21768,10 @@ var DropdownGenres = /*#__PURE__*/function () {
       fetch(this.genresLink).then(function (res) {
         return res.json();
       }).then(function (data) {
-        // console.log(data);
+        console.log(data);
         var ulGenres = document.querySelector('.genres .dropdown-menu');
         data.genres.forEach(function (genre) {
-          ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\">".concat(genre.name, "</a></li>");
+          ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\" data-id=\"".concat(genre.id, "\">").concat(genre.name, "</a></li>");
         });
       })["catch"](function (err) {
         return alert(err);
@@ -21709,14 +21819,13 @@ document.querySelector('.dropdown-toggle').addEventListener('click', function (e
 });
 window.addEventListener('click', function (e) {
   if (e.target !== document.querySelector('.dropdown-toggle')) {
-    // if (
-    //   document.querySelector('.dropdown-toggle').classList.contains('toggle-arrow')
-    // ) {
-    //   document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
-    // }
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
   }
-});
+}); // fetch(
+//   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
+// )
+//   .then(res => res.json())
+//   .then(data => console.log(data));
 })();
 
 /******/ })()
