@@ -1,39 +1,32 @@
 import $ from 'jquery';
 
-let releaseData = null;
-
-export default class FilmsByYear {
-  constructor(filmsByYearLink, bgImgLink) {
-    this.url = filmsByYearLink;
-    this.bgImgLink = bgImgLink;
+export default class GenreList {
+  constructor(url, id) {
+    this.url = url;
     this.list = document.querySelector('.main .main__populars');
-    this.prevButton = document.querySelector('#year-prev');
-    this.nextButton = document.querySelector('#year-next');
-    this.input = document.querySelector('.pagination input');
-    this.span = document.querySelector('.page-amount');
+    this.prevButton = document.querySelector('#genre-prev');
+    this.nextButton = document.querySelector('#genre-next');
+    this.input = document.querySelector('.pagination-genre input');
+    this.span = document.querySelector('.pagination-genre .page-amount');
     this.counter = 1;
+    this.id = id;
   }
 
   fetchDefaultFilms() {
-    document.querySelectorAll('.item__releasedata').forEach(item => {
-      item.addEventListener('click', event => {
-        releaseData = event.currentTarget.dataset.release;
-        this.fetchFilms(this.url, releaseData, this.counter);
-      });
-    });
+    this.fetchFilms();
   }
 
-  fetchFilms(url, releaseData, counter) {
-    fetch(`${url + releaseData}&page=${counter}`)
+  fetchFilms() {
+    let url = this.url + this.id + '&page=' + this.counter;
+    fetch(url)
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.list.innerHTML = '';
         this.renderFilms(data.results);
         document
           .querySelectorAll('.pagination')
           .forEach(item => (item.style.display = 'none'));
-        $('.pagination-year').css('display', 'block');
+        $('.pagination-genre').css('display', 'block');
         this.renderPagination(data);
       })
       .catch(err => console.log(err));
@@ -96,22 +89,14 @@ export default class FilmsByYear {
 
   nextPage() {
     this.counter += 1;
-    console.log(releaseData);
-    this.fetchFilms(
-      `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
-      releaseData,
-      this.counter
-    );
+    console.log(this.url + this.id + '&page=' + this.counter);
+    this.fetchFilms();
     this.input.value = this.counter;
   }
 
   prevPage() {
     this.counter -= 1;
-    this.fetchFilms(
-      `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
-      releaseData,
-      this.counter
-    );
+    this.fetchFilms();
     this.input.value = this.counter;
   }
 
@@ -140,11 +125,7 @@ export default class FilmsByYear {
       } else if (this.counter > this.input.getAttribute('max')) {
         return;
       } else {
-        this.fetchFilms(
-          `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
-          releaseData,
-          this.counter
-        );
+        this.fetchFilms();
       }
     }
   }
@@ -157,8 +138,7 @@ export default class FilmsByYear {
   }
 
   init() {
+    this.fetchDefaultFilms();
     this.addListeners();
   }
 }
-
-new FilmsByYear().init();

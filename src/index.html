@@ -66,9 +66,13 @@
     <main class="main">
       <div class="container">
         <ul class="main__populars"></ul>
-        <div class="pagination">
+        <div class="pagination pagination-year">
           <div>
-            <button id="prev" type="button" class="btn btn-outline-success">
+            <button
+              id="year-prev"
+              type="button"
+              class="btn btn-outline-success"
+            >
               Prev
             </button>
             <input
@@ -80,7 +84,38 @@
             />
             <span> of&ensp;</span>
             <span class="page-amount"></span>
-            <button id="next" type="button" class="btn btn-outline-success">
+            <button
+              id="year-next"
+              type="button"
+              class="btn btn-outline-success"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+        <div class="pagination pagination-genre">
+          <div>
+            <button
+              id="genre-prev"
+              type="button"
+              class="btn btn-outline-success"
+            >
+              Prev
+            </button>
+            <input
+              class="form-control me-2"
+              type="number"
+              name="pageNumber"
+              id=""
+              min="1"
+            />
+            <span> of&ensp;</span>
+            <span class="page-amount"></span>
+            <button
+              id="genre-next"
+              type="button"
+              class="btn btn-outline-success"
+            >
               Next
             </button>
           </div>
