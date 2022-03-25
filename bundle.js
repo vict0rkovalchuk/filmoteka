@@ -21600,6 +21600,10 @@ var PopularFilms = /*#__PURE__*/function () {
         return res.json();
       }).then(function (data) {
         var ul = document.querySelector('.main .main__populars');
+        ul.innerHTML = '';
+        document.querySelectorAll('.pagination').forEach(function (item) {
+          return item.style.display = 'none';
+        });
         data.results.forEach(function (film) {
           var movieTitle;
           var movieReleaseData;
@@ -21967,6 +21971,10 @@ document.querySelector('.dropdown-toggle').addEventListener('click', function (e
 window.addEventListener('click', function (e) {
   if (e.target !== document.querySelector('.dropdown-toggle')) {
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
+  }
+
+  if (e.target.classList.contains('net') || e.target.classList.contains('films')) {
+    new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
 }); // fetch(
 //   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
