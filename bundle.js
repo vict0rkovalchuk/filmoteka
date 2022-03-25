@@ -21722,8 +21722,6 @@ var Slider = /*#__PURE__*/function () {
           }, {
             breakpoint: 384,
             settings: {
-              vertical: true,
-              verticalSwiping: true,
               slidesToShow: 1
             }
           }]
