@@ -1,13 +1,16 @@
 import $ from 'jquery';
+import FilmsByYear from './filmsByYear';
 
 export default class GenreList {
-  constructor(url, id) {
+  constructor(url, id, bgImgLink) {
     this.url = url;
+    this.bgImgLink = bgImgLink;
     this.list = document.querySelector('.main .main__populars');
-    this.prevButton = document.querySelector('#genre-prev');
-    this.nextButton = document.querySelector('#genre-next');
-    this.input = document.querySelector('.pagination-genre input');
-    this.span = document.querySelector('.pagination-genre .page-amount');
+
+    this.prevButton = null;
+    this.nextButton = null;
+    this.input = null;
+    this.span = null;
     this.counter = 1;
     this.id = id;
   }
@@ -17,16 +20,29 @@ export default class GenreList {
   }
 
   fetchFilms() {
+    this.prevButton = document.querySelector(
+      `.pagination${this.id} #genre-prev`
+    );
+    this.nextButton = document.querySelector(
+      `.pagination${this.id} #genre-next`
+    );
+    this.input = document.querySelector(`.pagination${this.id} input`);
+    this.span = document.querySelector(`.pagination${this.id} .page-amount`);
+
     let url = this.url + this.id + '&page=' + this.counter;
     fetch(url)
       .then(res => res.json())
       .then(data => {
         console.log(data);
         this.renderFilms(data.results);
+        new FilmsByYear(
+          `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
+          this.bgImgLink
+        ).fetchDefaultFilms();
         document
           .querySelectorAll('.pagination')
           .forEach(item => (item.style.display = 'none'));
-        $('.pagination-genre').css('display', 'block');
+        $(`.pagination${this.id}`).css('display', 'block');
         this.renderPagination(data);
       })
       .catch(err => console.log(err));

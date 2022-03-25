@@ -26,12 +26,6 @@ new DropdownGenres(genresLink).init();
 // * ID searching
 // 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
 
-{
-  /* <div class="item__country">
-<span>Испания</span>, <span>Аргентина</span>
-</div> */
-}
-
 document.querySelector('.dropdown-toggle').addEventListener('click', e => {
   e.target.classList.toggle('toggle-arrow');
 });
@@ -58,9 +52,3 @@ document
       filmsByYearLink
     ).init();
   });
-
-// fetch(
-//   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
-// )
-//   .then(res => res.json())
-//   .then(data => console.log(data));
