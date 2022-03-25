@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import PopularFilms from './js/defaultFilms';
 import Slider from './js/sliderHeader';
 import DropdownGenres from './js/dropdownGenres';
+import Searching from './js/search';
 
 let API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
 let weekUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&page=`;
@@ -47,6 +48,16 @@ window.addEventListener('click', e => {
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
 });
+
+document
+  .querySelector('input.form-control')
+  .addEventListener('input', event => {
+    new Searching(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${event.target.value}`,
+      bgImgLink,
+      filmsByYearLink
+    ).init();
+  });
 
 // fetch(
 //   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
