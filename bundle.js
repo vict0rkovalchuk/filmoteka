@@ -21750,16 +21750,18 @@ function genreList_createClass(Constructor, protoProps, staticProps) { if (proto
 
 
 
+
 var GenreList = /*#__PURE__*/function () {
-  function GenreList(url, id) {
+  function GenreList(url, id, bgImgLink) {
     genreList_classCallCheck(this, GenreList);
 
     this.url = url;
+    this.bgImgLink = bgImgLink;
     this.list = document.querySelector('.main .main__populars');
-    this.prevButton = document.querySelector('#genre-prev');
-    this.nextButton = document.querySelector('#genre-next');
-    this.input = document.querySelector('.pagination-genre input');
-    this.span = document.querySelector('.pagination-genre .page-amount');
+    this.prevButton = null;
+    this.nextButton = null;
+    this.input = null;
+    this.span = null;
     this.counter = 1;
     this.id = id;
   }
@@ -21774,6 +21776,10 @@ var GenreList = /*#__PURE__*/function () {
     value: function fetchFilms() {
       var _this = this;
 
+      this.prevButton = document.querySelector(".pagination".concat(this.id, " #genre-prev"));
+      this.nextButton = document.querySelector(".pagination".concat(this.id, " #genre-next"));
+      this.input = document.querySelector(".pagination".concat(this.id, " input"));
+      this.span = document.querySelector(".pagination".concat(this.id, " .page-amount"));
       var url = this.url + this.id + '&page=' + this.counter;
       fetch(url).then(function (res) {
         return res.json();
@@ -21782,10 +21788,11 @@ var GenreList = /*#__PURE__*/function () {
 
         _this.renderFilms(data.results);
 
+        new FilmsByYear("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=", _this.bgImgLink).fetchDefaultFilms();
         document.querySelectorAll('.pagination').forEach(function (item) {
           return item.style.display = 'none';
         });
-        jquery_default()('.pagination-genre').css('display', 'block');
+        jquery_default()(".pagination".concat(_this.id)).css('display', 'block');
 
         _this.renderPagination(data);
       })["catch"](function (err) {
@@ -21912,13 +21919,15 @@ var DropdownGenres = /*#__PURE__*/function () {
         console.log(data);
         var ulGenres = document.querySelector('.genres .dropdown-menu');
         data.genres.forEach(function (genre) {
+          document.querySelector('.main .container').insertAdjacentHTML('beforeend', " <div class=\"pagination pagination".concat(genre.id, "\">\n          <div>\n            <button\n              id=\"genre-prev\"\n              type=\"button\"\n              class=\"btn btn-outline-success\"\n            >\n              Prev\n            </button>\n            <input\n              class=\"form-control me-2\"\n              type=\"number\"\n              name=\"pageNumber\"\n              id=\"\"\n              min=\"1\"\n            />\n            <span> of&ensp;</span>\n            <span class=\"page-amount\"></span>\n            <button\n              id=\"genre-next\"\n              type=\"button\"\n              class=\"btn btn-outline-success\"\n            >\n              Next\n            </button>\n          </div>\n        </div>"));
           ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\" data-id=\"".concat(genre.id, "\">").concat(genre.name, "</a></li>");
         });
         document.querySelectorAll('.dropdown-item').forEach(function (item) {
+          // console.log(document.querySelectorAll('.pagination'));
           item.addEventListener('click', function (event) {
             var id;
             id = event.target.dataset.id;
-            var newGenreList = new GenreList("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=", id);
+            var newGenreList = new GenreList("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=", id, "https://image.tmdb.org/t/p/w500/");
             newGenreList.init();
           });
         });
@@ -22022,11 +22031,6 @@ var genresLink = "https://api.themoviedb.org/3/genre/movie/list?api_key=".concat
 new DropdownGenres(genresLink).init(); // * ID searching
 // 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
 
-{
-  /* <div class="item__country">
-  <span>Испания</span>, <span>Аргентина</span>
-  </div> */
-}
 document.querySelector('.dropdown-toggle').addEventListener('click', function (e) {
   e.target.classList.toggle('toggle-arrow');
 });
@@ -22041,11 +22045,7 @@ window.addEventListener('click', function (e) {
 });
 document.querySelector('input.form-control').addEventListener('input', function (event) {
   new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(event.target.value), bgImgLink, filmsByYearLink).init();
-}); // fetch(
-//   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
-// )
-//   .then(res => res.json())
-//   .then(data => console.log(data));
+});
 })();
 
 /******/ })()
