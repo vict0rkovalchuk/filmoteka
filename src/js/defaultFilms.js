@@ -13,6 +13,10 @@ export default class PopularFilms {
       .then(res => res.json())
       .then(data => {
         let ul = document.querySelector('.main .main__populars');
+        ul.innerHTML = '';
+        document
+          .querySelectorAll('.pagination')
+          .forEach(item => (item.style.display = 'none'));
 
         data.results.forEach(film => {
           let movieTitle;

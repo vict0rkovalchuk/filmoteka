@@ -39,6 +39,13 @@ window.addEventListener('click', e => {
   if (e.target !== document.querySelector('.dropdown-toggle')) {
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
   }
+
+  if (
+    e.target.classList.contains('net') ||
+    e.target.classList.contains('films')
+  ) {
+    new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
+  }
 });
 
 // fetch(
