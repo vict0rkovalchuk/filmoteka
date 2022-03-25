@@ -62,8 +62,6 @@ export default class Slider {
             {
               breakpoint: 384,
               settings: {
-                vertical: true,
-                verticalSwiping: true,
                 slidesToShow: 1
               }
             }

@@ -21939,7 +21939,71 @@ var DropdownGenres = /*#__PURE__*/function () {
 }();
 
 
+;// CONCATENATED MODULE: ./src/js/search.js
+function search_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function search_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function search_createClass(Constructor, protoProps, staticProps) { if (protoProps) search_defineProperties(Constructor.prototype, protoProps); if (staticProps) search_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var Searching = /*#__PURE__*/function () {
+  function Searching(url, bgImgLink, filmsByYearLink) {
+    search_classCallCheck(this, Searching);
+
+    this.url = url;
+    this.filmsByYearLink = filmsByYearLink;
+    this.bgImgLink = bgImgLink;
+    this.list = document.querySelector('.main .main__populars');
+  }
+
+  search_createClass(Searching, [{
+    key: "fetchQuery",
+    value: function fetchQuery() {
+      var _this = this;
+
+      fetch(this.url).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        document.querySelectorAll('.pagination').forEach(function (item) {
+          return item.style.display = 'none';
+        });
+
+        _this.renderQueryResult(data.results);
+
+        new FilmsByYear(_this.filmsByYearLink, _this.bgImgLink).fetchDefaultFilms();
+      })["catch"](function (err) {
+        return alert(err);
+      });
+    }
+  }, {
+    key: "renderQueryResult",
+    value: function renderQueryResult(arrResults) {
+      var _this2 = this;
+
+      this.list.innerHTML = '';
+      arrResults.forEach(function (film) {
+        var movieTitle;
+        var movieReleaseData;
+        film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
+        film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
+        _this2.list.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"".concat(_this2.bgImgLink).concat(film.poster_path, "\"\n          alt=\"").concat(movieTitle, "\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.fetchQuery();
+    }
+  }]);
+
+  return Searching;
+}();
+
+
 ;// CONCATENATED MODULE: ./src/index.js
+
 
 
 
@@ -21976,6 +22040,9 @@ window.addEventListener('click', function (e) {
   if (e.target.classList.contains('net') || e.target.classList.contains('films')) {
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
+});
+document.querySelector('input.form-control').addEventListener('input', function (event) {
+  new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(event.target.value), bgImgLink, filmsByYearLink).init();
 }); // fetch(
 //   'https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=12'
 // )
