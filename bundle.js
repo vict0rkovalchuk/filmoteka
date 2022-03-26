@@ -21963,6 +21963,7 @@ var Searching = /*#__PURE__*/function () {
     this.filmsByYearLink = filmsByYearLink;
     this.bgImgLink = bgImgLink;
     this.list = document.querySelector('.main .main__populars');
+    this.counter = 1;
   }
 
   search_createClass(Searching, [{
@@ -21970,14 +21971,19 @@ var Searching = /*#__PURE__*/function () {
     value: function fetchQuery() {
       var _this = this;
 
-      fetch(this.url).then(function (res) {
+      fetch(this.url + this.counter).then(function (res) {
         return res.json();
       }).then(function (data) {
+        console.log(data);
         document.querySelectorAll('.pagination').forEach(function (item) {
           return item.style.display = 'none';
         });
 
-        _this.renderQueryResult(data.results);
+        _this.renderQueryResult(data, data.results);
+
+        if (data.total_pages > 1) {
+          _this.loadMoreFilms(data);
+        }
 
         new FilmsByYear(_this.filmsByYearLink, _this.bgImgLink).fetchDefaultFilms();
       })["catch"](function (err) {
@@ -21986,7 +21992,7 @@ var Searching = /*#__PURE__*/function () {
     }
   }, {
     key: "renderQueryResult",
-    value: function renderQueryResult(arrResults) {
+    value: function renderQueryResult(data, arrResults) {
       var _this2 = this;
 
       this.list.innerHTML = '';
@@ -21996,6 +22002,43 @@ var Searching = /*#__PURE__*/function () {
         film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
         film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
         _this2.list.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"".concat(_this2.bgImgLink).concat(film.poster_path, "\"\n          alt=\"").concat(movieTitle, "\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+      });
+
+      if (data.total_pages > 1) {
+        this.list.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
+      }
+    }
+  }, {
+    key: "loadMoreFilms",
+    value: function loadMoreFilms(data) {
+      var _this3 = this;
+
+      document.querySelector('.button-item button').addEventListener('click', function () {
+        _this3.counter++;
+
+        if (data.total_pages - _this3.counter === 1) {
+          document.querySelector('.button-item button').textContent = "Load ".concat(data.total_results % data.results.length, " more");
+        }
+
+        if (_this3.counter === data.total_pages) {
+          document.querySelector('.button-item button').style.display = 'none';
+        }
+
+        fetch(_this3.url + _this3.counter).then(function (res) {
+          return res.json();
+        }).then(function (data) {
+          var btnItem = document.querySelector('.button-item');
+          data.results.forEach(function (film) {
+            var movieTitle;
+            var movieReleaseData;
+            film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
+            film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
+            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                <div class=\"item__img\">\n                  <img \n                    src=\"".concat(_this3.bgImgLink + film.poster_path, "\"\n                    alt=\"img\"\n                  />\n                </div>\n                <div class=\"item__descr\">\n                  <div class=\"item__title\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
+          });
+          new FilmsByYear(_this3.filmsByYearLink, _this3.bgImgLink).fetchDefaultFilms();
+        })["catch"](function (err) {
+          return alert(err);
+        });
       });
     }
   }, {
@@ -22043,8 +22086,11 @@ window.addEventListener('click', function (e) {
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
 });
-document.querySelector('input.form-control').addEventListener('input', function (event) {
-  new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(event.target.value), bgImgLink, filmsByYearLink).init();
+document.querySelector('nav button.btn').addEventListener('click', function (event) {
+  event.preventDefault();
+  var input = document.querySelector('input.form-control');
+  new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input.value, "&page="), bgImgLink, filmsByYearLink).init();
+  input.value = '';
 });
 })();
 
