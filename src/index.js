@@ -43,12 +43,13 @@ window.addEventListener('click', e => {
   }
 });
 
-document
-  .querySelector('input.form-control')
-  .addEventListener('input', event => {
-    new Searching(
-      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${event.target.value}`,
-      bgImgLink,
-      filmsByYearLink
-    ).init();
-  });
+document.querySelector('nav button.btn').addEventListener('click', event => {
+  event.preventDefault();
+  let input = document.querySelector('input.form-control');
+  new Searching(
+    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input.value}&page=`,
+    bgImgLink,
+    filmsByYearLink
+  ).init();
+  input.value = '';
+});
