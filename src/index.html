@@ -62,21 +62,25 @@
           </div>
         </div>
       </nav>
-      <div class="container"><div class="popularfilms-slider"></div></div>
+      <div class="container">
+        <div class="popularfilms-slider"></div>
+      </div>
     </header>
 
-    <main class="main">
+    <main class="main" id="main">
       <div class="container">
         <ul class="main__populars"></ul>
         <div class="pagination pagination-year">
           <div>
-            <button
-              id="year-prev"
-              type="button"
-              class="btn btn-outline-success"
+            <a href="#main">
+              <button
+                id="year-prev"
+                type="button"
+                class="btn btn-outline-success"
+              >
+                Prev
+              </button></a
             >
-              Prev
-            </button>
             <input
               class="form-control me-2"
               type="number"
@@ -86,13 +90,15 @@
             />
             <span> of&ensp;</span>
             <span class="page-amount"></span>
-            <button
-              id="year-next"
-              type="button"
-              class="btn btn-outline-success"
+            <a href="#main">
+              <button
+                id="year-next"
+                type="button"
+                class="btn btn-outline-success"
+              >
+                Next
+              </button></a
             >
-              Next
-            </button>
           </div>
         </div>
       </div>

@@ -25,13 +25,13 @@ export default class DropdownGenres {
             'beforeend',
             ` <div class="pagination pagination${genre.id}">
           <div>
-            <button
-              id="genre-prev"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              Prev
-            </button>
+           <a href="#main"> <button
+           id="genre-prev"
+           type="button"
+           class="btn btn-outline-success"
+         >
+           Prev
+         </button></a>
             <input
               class="form-control me-2"
               type="number"
@@ -41,13 +41,13 @@ export default class DropdownGenres {
             />
             <span> of&ensp;</span>
             <span class="page-amount"></span>
-            <button
-              id="genre-next"
-              type="button"
-              class="btn btn-outline-success"
-            >
-              Next
-            </button>
+           <a href="#main"> <button
+           id="genre-next"
+           type="button"
+           class="btn btn-outline-success"
+         >
+           Next
+         </button></a>
           </div>
         </div>`
           );

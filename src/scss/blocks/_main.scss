@@ -1,5 +1,5 @@
 .main {
-  margin-top: 60px;
+  padding-top: 60px;
   margin-bottom: 45px;
   .container {
     .genre-name {
@@ -54,10 +54,13 @@
           cursor: pointer;
         }
       }
-      &__releasedata:hover {
-        cursor: pointer;
-        span {
-          text-decoration: underline;
+      &__releasedata {
+        text-decoration: none;
+        &:hover {
+          cursor: pointer;
+          span {
+            text-decoration: underline;
+          }
         }
       }
     }

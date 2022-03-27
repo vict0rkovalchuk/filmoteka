@@ -74,11 +74,11 @@ export default class GenreList {
       <div class="item__descr">
         <div class="item__title">${movieTitle}</div>
         <div class="item__info">
-          <div class="item__releasedata" data-release='${new Date(
+          <a href="#main" class="item__releasedata" data-release='${new Date(
             movieReleaseData
-          ).getFullYear()}'>${new Date(
+          ).getFullYear()}'><span>${new Date(
         movieReleaseData
-      ).getFullYear()},&ensp;</div>
+      ).getFullYear()}</span>,&ensp;</a>
           <div class="item__country">
         Rating: ${film.vote_average}/10
           </div>
