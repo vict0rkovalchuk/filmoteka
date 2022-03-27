@@ -15,6 +15,12 @@ export default class DropdownGenres {
         let ulGenres = document.querySelector('.genres .dropdown-menu');
 
         data.genres.forEach(genre => {
+          document
+            .querySelector('.main .container')
+            .insertAdjacentHTML(
+              'afterbegin',
+              `<div class="genre-name genre-name-${genre.id}"><h3>${genre.name}</h3></div>`
+            );
           document.querySelector('.main .container').insertAdjacentHTML(
             'beforeend',
             ` <div class="pagination pagination${genre.id}">

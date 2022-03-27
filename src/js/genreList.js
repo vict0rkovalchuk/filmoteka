@@ -40,6 +40,11 @@ export default class GenreList {
           this.bgImgLink
         ).fetchDefaultFilms();
         document
+          .querySelectorAll('.genre-name')
+          .forEach(item => (item.style.display = 'none'));
+        $(`.genre-name-${this.id}`).css('display', 'block');
+
+        document
           .querySelectorAll('.pagination')
           .forEach(item => (item.style.display = 'none'));
         $(`.pagination${this.id}`).css('display', 'block');
