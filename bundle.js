@@ -21493,7 +21493,7 @@ var FilmsByYear = /*#__PURE__*/function () {
         var movieReleaseData;
         film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
         film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-        _this3.list.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n          alt=\"").concat(movieTitle, "\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+        _this3.list.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img\n          src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n          alt=\"").concat(movieTitle, "\"\n        />\n      </div>\n      \n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
       });
     }
   }, {
@@ -21602,6 +21602,7 @@ var PopularFilms = /*#__PURE__*/function () {
       fetch(this.weekUrl + this.counter).then(function (res) {
         return res.json();
       }).then(function (data) {
+        console.log(data);
         var ul = document.querySelector('.main .main__populars');
         ul.innerHTML = '';
         document.querySelectorAll('.pagination').forEach(function (item) {
@@ -21612,7 +21613,7 @@ var PopularFilms = /*#__PURE__*/function () {
           var movieReleaseData;
           film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
           film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-          ul.innerHTML += "<li class=\"item\">\n      <div class=\"item__img\">\n        <img \n          src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n          alt=\"img\"\n        />\n      </div>\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+          ul.innerHTML += "<li class=\"item\">\n          <div class=\"item__img\">\n            <img\n              src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n              alt=\"img\"\n            />\n            <div class=\"hover-effect\">\n              <div class=\"hover-text\">\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Watched</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Queue</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">watch</button>\n              </div>\n            </div>\n          </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
         });
         ul.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
 
@@ -21639,7 +21640,7 @@ var PopularFilms = /*#__PURE__*/function () {
             var movieReleaseData;
             film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
             film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                <div class=\"item__img\">\n                  <img \n                    src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                    alt=\"img\"\n                  />\n                </div>\n                <div class=\"item__descr\">\n                  <div class=\"item__title\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
+            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                  <div class=\"item__img\">\n                    <img\n                      src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                      alt=\"img\"\n                    />\n                    <div class=\"hover-effect\">\n                      <div class=\"hover-text\">\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Watched</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Queue</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">watch</button>\n                      </div>\n                    </div>\n                  </div>\n\n                <div class=\"item__descr\">\n                  <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                  <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
           });
           new FilmsByYear(_this2.filmsByYearLink, _this2.bgImgLink).fetchDefaultFilms();
         })["catch"](function (err) {
@@ -22088,9 +22089,7 @@ new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
 var dayUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=".concat(API_KEY);
 new Slider(dayUrl, bgImgLink).init();
 var genresLink = "https://api.themoviedb.org/3/genre/movie/list?api_key=".concat(API_KEY);
-new DropdownGenres(genresLink).init(); // * ID searching
-// 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
-
+new DropdownGenres(genresLink).init();
 document.querySelector('.dropdown-toggle').addEventListener('click', function (e) {
   e.target.classList.toggle('toggle-arrow');
 });
@@ -22114,6 +22113,16 @@ document.querySelector('nav button.btn').addEventListener('click', function (eve
   var input = document.querySelector('input.form-control');
   new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input.value, "&page="), bgImgLink, filmsByYearLink).init();
   input.value = '';
+}); // window.addEventListener('click', e => {
+//   console.log(e.target);
+// });
+// * ID searching
+// 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
+
+fetch('https://api.themoviedb.org/3/movie/370172?api_key=fb2d223cbf586b1c9599530eaa26a8db').then(function (res) {
+  return res.json();
+}).then(function (data) {
+  return console.log(data);
 });
 })();
 
