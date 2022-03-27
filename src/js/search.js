@@ -82,12 +82,19 @@ export default class Searching {
       .addEventListener('click', () => {
         this.counter++;
 
-        if (data.total_pages - this.counter === 1) {
-          document.querySelector('.button-item button').textContent = `Load ${
-            data.total_results % data.results.length
-          } more`;
-        } else if (data.total_pages - this.counter === 0) {
-          document.querySelector('.button-item button').style.display = 'none';
+        switch (data.total_pages - this.counter) {
+          case 1:
+            document.querySelector('.button-item button').textContent = `Load ${
+              data.total_results % data.results.length
+            } more`;
+            break;
+          case 0:
+            document.querySelector('.button-item button').style.display =
+              'none';
+            break;
+
+          default:
+            break;
         }
 
         fetch(this.url + this.counter)
