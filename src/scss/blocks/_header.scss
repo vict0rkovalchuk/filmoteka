@@ -1,5 +1,11 @@
 .header {
   background-color: $elements-color;
+  nav {
+    background-color: $elements-color;
+  }
+  .container {
+    margin-top: 56px;
+  }
   span.films {
     text-transform: uppercase;
   }

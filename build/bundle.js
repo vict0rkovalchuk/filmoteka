@@ -21450,6 +21450,9 @@ var FilmsByYear = /*#__PURE__*/function () {
 
       document.querySelectorAll('.item__releasedata').forEach(function (item) {
         item.addEventListener('click', function (event) {
+          document.querySelectorAll('.genre-name').forEach(function (item) {
+            return item.style.display = 'none';
+          });
           releaseData = event.currentTarget.dataset.release;
 
           _this.fetchFilms(_this.url, releaseData, _this.counter);
@@ -22012,6 +22015,10 @@ var Searching = /*#__PURE__*/function () {
       if (data.total_pages > 1) {
         this.list.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
       }
+
+      if (data.total_pages === 2) {
+        document.querySelector('.button-item button').textContent = "Load ".concat(data.total_results % data.results.length, " more");
+      }
     }
   }, {
     key: "loadMoreFilms",
@@ -22021,12 +22028,17 @@ var Searching = /*#__PURE__*/function () {
       document.querySelector('.button-item button').addEventListener('click', function () {
         _this3.counter++;
 
-        if (data.total_pages - _this3.counter === 1) {
-          document.querySelector('.button-item button').textContent = "Load ".concat(data.total_results % data.results.length, " more");
-        }
+        switch (data.total_pages - _this3.counter) {
+          case 1:
+            document.querySelector('.button-item button').textContent = "Load ".concat(data.total_results % data.results.length, " more");
+            break;
 
-        if (_this3.counter === data.total_pages) {
-          document.querySelector('.button-item button').style.display = 'none';
+          case 0:
+            document.querySelector('.button-item button').style.display = 'none';
+            break;
+
+          default:
+            break;
         }
 
         fetch(_this3.url + _this3.counter).then(function (res) {
@@ -22087,12 +22099,18 @@ window.addEventListener('click', function (e) {
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
   }
 
-  if (e.target.classList.contains('net') || e.target.classList.contains('films')) {
+  if (e.target.classList.contains('net') || e.target.classList.contains('films') || e.target.classList.contains('header__home')) {
+    document.querySelectorAll('.genre-name').forEach(function (item) {
+      return item.style.display = 'none';
+    });
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
 });
 document.querySelector('nav button.btn').addEventListener('click', function (event) {
   event.preventDefault();
+  document.querySelectorAll('.genre-name').forEach(function (item) {
+    return item.style.display = 'none';
+  });
   var input = document.querySelector('input.form-control');
   new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input.value, "&page="), bgImgLink, filmsByYearLink).init();
   input.value = '';
