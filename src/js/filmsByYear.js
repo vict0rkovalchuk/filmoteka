@@ -60,6 +60,7 @@ export default class FilmsByYear {
           alt="${movieTitle}"
         />
       </div>
+      
       <div class="item__descr">
         <div class="item__title">${movieTitle}</div>
         <div class="item__info">

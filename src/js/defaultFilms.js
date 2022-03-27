@@ -12,6 +12,7 @@ export default class PopularFilms {
     fetch(this.weekUrl + this.counter)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         let ul = document.querySelector('.main .main__populars');
         ul.innerHTML = '';
         document
@@ -31,14 +32,28 @@ export default class PopularFilms {
             : (movieReleaseData = film.first_air_date);
 
           ul.innerHTML += `<li class="item">
-      <div class="item__img">
-        <img 
-          src="${this.bgImgLink + film.poster_path}"
-          alt="img"
-        />
-      </div>
+          <div class="item__img">
+            <img
+              src="${this.bgImgLink + film.poster_path}"
+              alt="img"
+            />
+            <div class="hover-effect">
+              <div class="hover-text">
+            <button type="button" data-id="${
+              film.id
+            }" class="btn btn-outline-light">add to Watched</button>
+            <button type="button" data-id="${
+              film.id
+            }" class="btn btn-outline-light">add to Queue</button>
+            <button type="button" data-id="${
+              film.id
+            }" class="btn btn-outline-light">watch</button>
+              </div>
+            </div>
+          </div>
+
       <div class="item__descr">
-        <div class="item__title">${movieTitle}</div>
+        <div class="item__title" data-id="${film.id}">${movieTitle}</div>
         <div class="item__info">
           <a href="#main" class="item__releasedata" data-release='${new Date(
             movieReleaseData
@@ -90,20 +105,36 @@ export default class PopularFilms {
               btnItem.insertAdjacentHTML(
                 'beforebegin',
                 `<li class="item">
-                <div class="item__img">
-                  <img 
-                    src="${this.bgImgLink + film.poster_path}"
-                    alt="img"
-                  />
-                </div>
+                  <div class="item__img">
+                    <img
+                      src="${this.bgImgLink + film.poster_path}"
+                      alt="img"
+                    />
+                    <div class="hover-effect">
+                      <div class="hover-text">
+                        <button type="button" data-id="${
+                          film.id
+                        }" class="btn btn-outline-light">add to Watched</button>
+                        <button type="button" data-id="${
+                          film.id
+                        }" class="btn btn-outline-light">add to Queue</button>
+                        <button type="button" data-id="${
+                          film.id
+                        }" class="btn btn-outline-light">watch</button>
+                      </div>
+                    </div>
+                  </div>
+
                 <div class="item__descr">
-                  <div class="item__title">${movieTitle}</div>
+                  <div class="item__title" data-id="${
+                    film.id
+                  }">${movieTitle}</div>
                   <div class="item__info">
-                    <div class="item__releasedata" data-release='${new Date(
-                      movieReleaseData
-                    ).getFullYear()}'><span>${new Date(
+                  <a href="#main" class="item__releasedata" data-release='${new Date(
+                    movieReleaseData
+                  ).getFullYear()}'><span>${new Date(
                   movieReleaseData
-                ).getFullYear()}</span>,&ensp;</div>
+                ).getFullYear()}</span>,&ensp;</a>
                     <div class="item__country">
                   Rating: ${film.vote_average}/10
                     </div>

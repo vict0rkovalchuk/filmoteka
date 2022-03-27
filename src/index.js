@@ -23,9 +23,6 @@ new Slider(dayUrl, bgImgLink).init();
 let genresLink = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 new DropdownGenres(genresLink).init();
 
-// * ID searching
-// 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
-
 document.querySelector('.dropdown-toggle').addEventListener('click', e => {
   e.target.classList.toggle('toggle-arrow');
 });
@@ -60,3 +57,16 @@ document.querySelector('nav button.btn').addEventListener('click', event => {
   ).init();
   input.value = '';
 });
+
+// window.addEventListener('click', e => {
+//   console.log(e.target);
+// });
+
+// * ID searching
+// 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
+
+fetch(
+  'https://api.themoviedb.org/3/movie/370172?api_key=fb2d223cbf586b1c9599530eaa26a8db'
+)
+  .then(res => res.json())
+  .then(data => console.log(data));
