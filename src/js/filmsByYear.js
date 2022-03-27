@@ -17,6 +17,9 @@ export default class FilmsByYear {
   fetchDefaultFilms() {
     document.querySelectorAll('.item__releasedata').forEach(item => {
       item.addEventListener('click', event => {
+        document
+          .querySelectorAll('.genre-name')
+          .forEach(item => (item.style.display = 'none'));
         releaseData = event.currentTarget.dataset.release;
         this.fetchFilms(this.url, releaseData, this.counter);
       });

@@ -37,14 +37,21 @@ window.addEventListener('click', e => {
 
   if (
     e.target.classList.contains('net') ||
-    e.target.classList.contains('films')
+    e.target.classList.contains('films') ||
+    e.target.classList.contains('header__home')
   ) {
+    document
+      .querySelectorAll('.genre-name')
+      .forEach(item => (item.style.display = 'none'));
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
   }
 });
 
 document.querySelector('nav button.btn').addEventListener('click', event => {
   event.preventDefault();
+  document
+    .querySelectorAll('.genre-name')
+    .forEach(item => (item.style.display = 'none'));
   let input = document.querySelector('input.form-control');
   new Searching(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input.value}&page=`,

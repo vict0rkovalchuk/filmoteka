@@ -69,6 +69,11 @@ export default class Searching {
         `<div class="button-item"><button type="button" class="btn btn-outline-success">Load 20 more</button></div>`
       );
     }
+    if (data.total_pages === 2) {
+      document.querySelector('.button-item button').textContent = `Load ${
+        data.total_results % data.results.length
+      } more`;
+    }
   }
 
   loadMoreFilms(data) {
@@ -76,14 +81,15 @@ export default class Searching {
       .querySelector('.button-item button')
       .addEventListener('click', () => {
         this.counter++;
+
         if (data.total_pages - this.counter === 1) {
           document.querySelector('.button-item button').textContent = `Load ${
             data.total_results % data.results.length
           } more`;
-        }
-        if (this.counter === data.total_pages) {
+        } else if (data.total_pages - this.counter === 0) {
           document.querySelector('.button-item button').style.display = 'none';
         }
+
         fetch(this.url + this.counter)
           .then(res => res.json())
           .then(data => {

@@ -21789,6 +21789,10 @@ var GenreList = /*#__PURE__*/function () {
         _this.renderFilms(data.results);
 
         new FilmsByYear("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=", _this.bgImgLink).fetchDefaultFilms();
+        document.querySelectorAll('.genre-name').forEach(function (item) {
+          return item.style.display = 'none';
+        });
+        jquery_default()(".genre-name-".concat(_this.id)).css('display', 'block');
         document.querySelectorAll('.pagination').forEach(function (item) {
           return item.style.display = 'none';
         });
@@ -21919,6 +21923,7 @@ var DropdownGenres = /*#__PURE__*/function () {
         console.log(data);
         var ulGenres = document.querySelector('.genres .dropdown-menu');
         data.genres.forEach(function (genre) {
+          document.querySelector('.main .container').insertAdjacentHTML('afterbegin', "<div class=\"genre-name genre-name-".concat(genre.id, "\"><h3>").concat(genre.name, "</h3></div>"));
           document.querySelector('.main .container').insertAdjacentHTML('beforeend', " <div class=\"pagination pagination".concat(genre.id, "\">\n          <div>\n            <button\n              id=\"genre-prev\"\n              type=\"button\"\n              class=\"btn btn-outline-success\"\n            >\n              Prev\n            </button>\n            <input\n              class=\"form-control me-2\"\n              type=\"number\"\n              name=\"pageNumber\"\n              id=\"\"\n              min=\"1\"\n            />\n            <span> of&ensp;</span>\n            <span class=\"page-amount\"></span>\n            <button\n              id=\"genre-next\"\n              type=\"button\"\n              class=\"btn btn-outline-success\"\n            >\n              Next\n            </button>\n          </div>\n        </div>"));
           ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\" data-id=\"".concat(genre.id, "\">").concat(genre.name, "</a></li>");
         });
