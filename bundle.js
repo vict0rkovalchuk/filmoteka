@@ -21925,11 +21925,13 @@ var DropdownGenres = /*#__PURE__*/function () {
         return res.json();
       }).then(function (data) {
         console.log(data);
-        var ulGenres = document.querySelector('.genres .dropdown-menu');
+        var ulGenres = document.querySelectorAll('.genres .dropdown-menu');
         data.genres.forEach(function (genre) {
           document.querySelector('.main .container').insertAdjacentHTML('afterbegin', "<div class=\"genre-name genre-name-".concat(genre.id, "\"><h3>").concat(genre.name, "</h3></div>"));
           document.querySelector('.main .container').insertAdjacentHTML('beforeend', " <div class=\"pagination pagination".concat(genre.id, "\">\n          <div>\n           <a href=\"#main\"> <button\n           id=\"genre-prev\"\n           type=\"button\"\n           class=\"btn btn-outline-success\"\n         >\n           Prev\n         </button></a>\n            <input\n              class=\"form-control me-2\"\n              type=\"number\"\n              name=\"pageNumber\"\n              id=\"\"\n              min=\"1\"\n            />\n            <span> of&ensp;</span>\n            <span class=\"page-amount\"></span>\n           <a href=\"#main\"> <button\n           id=\"genre-next\"\n           type=\"button\"\n           class=\"btn btn-outline-success\"\n         >\n           Next\n         </button></a>\n          </div>\n        </div>"));
-          ulGenres.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\" data-id=\"".concat(genre.id, "\">").concat(genre.name, "</a></li>");
+          ulGenres.forEach(function (item) {
+            item.innerHTML += " <li><a class=\"dropdown-item\" href=\"#\" data-id=\"".concat(genre.id, "\">").concat(genre.name, "</a></li>");
+          });
         });
         document.querySelectorAll('.dropdown-item').forEach(function (item) {
           // console.log(document.querySelectorAll('.pagination'));
@@ -22160,8 +22162,10 @@ var dayUrl = "https://api.themoviedb.org/3/trending/all/day?api_key=".concat(API
 new Slider(dayUrl, bgImgLink).init();
 var genresLink = "https://api.themoviedb.org/3/genre/movie/list?api_key=".concat(API_KEY);
 new DropdownGenres(genresLink).init();
-document.querySelector('.dropdown-toggle').addEventListener('click', function (e) {
-  e.target.classList.toggle('toggle-arrow');
+document.querySelectorAll('.dropdown-toggle').forEach(function (item) {
+  item.addEventListener('click', function (e) {
+    e.target.classList.toggle('toggle-arrow');
+  });
 });
 window.addEventListener('click', function (e) {
   if (e.target !== document.querySelector('.dropdown-toggle')) {
@@ -22191,14 +22195,16 @@ window.addEventListener('click', function (e) {
     new GetLocalStorage('queue').init();
   }
 });
-document.querySelector('nav button.btn').addEventListener('click', function (event) {
-  event.preventDefault();
-  document.querySelectorAll('.genre-name').forEach(function (item) {
-    return item.style.display = 'none';
+document.querySelectorAll('nav button.btn').forEach(function (item, index) {
+  item.addEventListener('click', function (event) {
+    event.preventDefault();
+    document.querySelectorAll('.genre-name').forEach(function (item) {
+      return item.style.display = 'none';
+    });
+    var input = document.querySelectorAll('input.form-control');
+    new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input[index].value, "&page="), bgImgLink, filmsByYearLink).init();
+    input[index].value = '';
   });
-  var input = document.querySelector('input.form-control');
-  new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input.value, "&page="), bgImgLink, filmsByYearLink).init();
-  input.value = '';
 });
 window.addEventListener('click', function (e) {
   if (e.target.classList.contains('btn-watched')) {
