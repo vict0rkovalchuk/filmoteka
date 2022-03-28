@@ -21613,7 +21613,7 @@ var PopularFilms = /*#__PURE__*/function () {
           var movieReleaseData;
           film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
           film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-          ul.innerHTML += "<li class=\"item\">\n          <div class=\"item__img\">\n            <img\n              src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n              alt=\"img\"\n            />\n            <div class=\"hover-effect\">\n              <div class=\"hover-text\">\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Watched</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Queue</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">watch</button>\n              </div>\n            </div>\n          </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+          ul.innerHTML += "<li class=\"item\">\n          <div class=\"item__img\">\n            <img\n              src=\"".concat(_this.bgImgLink + film.poster_path, "\"\n              alt=\"img\"\n            />\n            <div class=\"hover-effect\">\n              <div class=\"hover-text\">\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n            <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n              </div>\n            </div>\n          </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
         });
         ul.insertAdjacentHTML('beforeend', "<div class=\"button-item\"><button type=\"button\" class=\"btn btn-outline-success\">Load 20 more</button></div>");
 
@@ -21640,7 +21640,7 @@ var PopularFilms = /*#__PURE__*/function () {
             var movieReleaseData;
             film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
             film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                  <div class=\"item__img\">\n                    <img\n                      src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                      alt=\"img\"\n                    />\n                    <div class=\"hover-effect\">\n                      <div class=\"hover-text\">\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Watched</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">add to Queue</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-outline-light\">watch</button>\n                      </div>\n                    </div>\n                  </div>\n\n                <div class=\"item__descr\">\n                  <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                  <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
+            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n                  <div class=\"item__img\">\n                    <img\n                      src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n                      alt=\"img\"\n                    />\n                    <div class=\"hover-effect\">\n                      <div class=\"hover-text\">\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n                        <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n                      </div>\n                    </div>\n                  </div>\n\n                <div class=\"item__descr\">\n                  <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                  <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
           });
           new FilmsByYear(_this2.filmsByYearLink, _this2.bgImgLink).fetchDefaultFilms();
         })["catch"](function (err) {
@@ -22070,7 +22070,77 @@ var Searching = /*#__PURE__*/function () {
 }();
 
 
+;// CONCATENATED MODULE: ./src/js/setLocalStorage.js
+function setLocalStorage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function setLocalStorage_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function setLocalStorage_createClass(Constructor, protoProps, staticProps) { if (protoProps) setLocalStorage_defineProperties(Constructor.prototype, protoProps); if (staticProps) setLocalStorage_defineProperties(Constructor, staticProps); return Constructor; }
+
+var SetLocalStorage = /*#__PURE__*/function () {
+  function SetLocalStorage(nameCollection, id) {
+    setLocalStorage_classCallCheck(this, SetLocalStorage);
+
+    this.id = id;
+    this.nameCollection = nameCollection;
+  }
+
+  setLocalStorage_createClass(SetLocalStorage, [{
+    key: "setToLocalStorage",
+    value: function setToLocalStorage() {
+      if (localStorage.getItem(this.nameCollection) === null) {
+        localStorage.setItem(this.nameCollection, JSON.stringify([this.id]));
+      } else if (localStorage.getItem(this.nameCollection)) {
+        var arr = JSON.parse(localStorage.getItem(this.nameCollection));
+        arr.push(this.id);
+        localStorage.setItem(this.nameCollection, JSON.stringify(arr));
+        console.log(arr);
+      }
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.setToLocalStorage();
+    }
+  }]);
+
+  return SetLocalStorage;
+}();
+
+
+;// CONCATENATED MODULE: ./src/js/getLocalStorage.js
+function getLocalStorage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function getLocalStorage_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function getLocalStorage_createClass(Constructor, protoProps, staticProps) { if (protoProps) getLocalStorage_defineProperties(Constructor.prototype, protoProps); if (staticProps) getLocalStorage_defineProperties(Constructor, staticProps); return Constructor; }
+
+var GetLocalStorage = /*#__PURE__*/function () {
+  function GetLocalStorage(nameCollection) {
+    getLocalStorage_classCallCheck(this, GetLocalStorage);
+
+    this.nameCollection = nameCollection;
+  }
+
+  getLocalStorage_createClass(GetLocalStorage, [{
+    key: "getToLocalStorage",
+    value: function getToLocalStorage() {
+      console.log(JSON.parse(localStorage.getItem(this.nameCollection)));
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.getToLocalStorage();
+    }
+  }]);
+
+  return GetLocalStorage;
+}();
+
+
 ;// CONCATENATED MODULE: ./src/index.js
+
+
 
 
 
@@ -22098,11 +22168,27 @@ window.addEventListener('click', function (e) {
     document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
   }
 
+  if (e.target.classList.contains('net') || e.target.classList.contains('films')) {
+    document.querySelector('.library').style.zIndex = '1';
+  }
+
   if (e.target.classList.contains('net') || e.target.classList.contains('films') || e.target.classList.contains('header__home')) {
     document.querySelectorAll('.genre-name').forEach(function (item) {
       return item.style.display = 'none';
     });
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
+  }
+
+  if (e.target.classList.contains('header__library')) {
+    document.querySelector('.library').style.zIndex = '100';
+  }
+
+  if (e.target.classList.contains('header__watched')) {
+    new GetLocalStorage('watched').init();
+  }
+
+  if (e.target.classList.contains('header__queue')) {
+    new GetLocalStorage('queue').init();
   }
 });
 document.querySelector('nav button.btn').addEventListener('click', function (event) {
@@ -22113,10 +22199,14 @@ document.querySelector('nav button.btn').addEventListener('click', function (eve
   var input = document.querySelector('input.form-control');
   new Searching("https://api.themoviedb.org/3/search/movie?api_key=".concat(API_KEY, "&query=").concat(input.value, "&page="), bgImgLink, filmsByYearLink).init();
   input.value = '';
-}); // window.addEventListener('click', e => {
-//   console.log(e.target);
-// });
-// * ID searching
+});
+window.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-watched')) {
+    new SetLocalStorage('watched', e.target.dataset.id).init();
+  } else if (e.target.classList.contains('btn-queue')) {
+    new SetLocalStorage('queue', e.target.dataset.id).init();
+  }
+}); // * ID searching
 // 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
 
 fetch('https://api.themoviedb.org/3/movie/370172?api_key=fb2d223cbf586b1c9599530eaa26a8db').then(function (res) {

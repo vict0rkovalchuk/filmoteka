@@ -12,7 +12,7 @@ export default class DropdownGenres {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        let ulGenres = document.querySelector('.genres .dropdown-menu');
+        let ulGenres = document.querySelectorAll('.genres .dropdown-menu');
 
         data.genres.forEach(genre => {
           document
@@ -51,7 +51,9 @@ export default class DropdownGenres {
           </div>
         </div>`
           );
-          ulGenres.innerHTML += ` <li><a class="dropdown-item" href="#" data-id="${genre.id}">${genre.name}</a></li>`;
+          ulGenres.forEach(item => {
+            item.innerHTML += ` <li><a class="dropdown-item" href="#" data-id="${genre.id}">${genre.name}</a></li>`;
+          });
         });
 
         document.querySelectorAll('.dropdown-item').forEach(item => {

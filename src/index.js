@@ -25,8 +25,10 @@ new Slider(dayUrl, bgImgLink).init();
 let genresLink = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 new DropdownGenres(genresLink).init();
 
-document.querySelector('.dropdown-toggle').addEventListener('click', e => {
-  e.target.classList.toggle('toggle-arrow');
+document.querySelectorAll('.dropdown-toggle').forEach(item => {
+  item.addEventListener('click', e => {
+    e.target.classList.toggle('toggle-arrow');
+  });
 });
 
 window.addEventListener('click', e => {
@@ -65,18 +67,20 @@ window.addEventListener('click', e => {
   }
 });
 
-document.querySelector('nav button.btn').addEventListener('click', event => {
-  event.preventDefault();
-  document
-    .querySelectorAll('.genre-name')
-    .forEach(item => (item.style.display = 'none'));
-  let input = document.querySelector('input.form-control');
-  new Searching(
-    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input.value}&page=`,
-    bgImgLink,
-    filmsByYearLink
-  ).init();
-  input.value = '';
+document.querySelectorAll('nav button.btn').forEach((item, index) => {
+  item.addEventListener('click', event => {
+    event.preventDefault();
+    document
+      .querySelectorAll('.genre-name')
+      .forEach(item => (item.style.display = 'none'));
+    let input = document.querySelectorAll('input.form-control');
+    new Searching(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${input[index].value}&page=`,
+      bgImgLink,
+      filmsByYearLink
+    ).init();
+    input[index].value = '';
+  });
 });
 
 window.addEventListener('click', e => {
