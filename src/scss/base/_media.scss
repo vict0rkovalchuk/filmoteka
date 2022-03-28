@@ -1,3 +1,45 @@
+@media (min-width: 310px) {
+  ul .dropdown .dropdown-menu {
+    &.show {
+      display: grid !important;
+      grid-template-columns: repeat(2, auto);
+      li a.dropdown-item {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (min-width: 384px) {
+  ul .dropdown .dropdown-menu {
+    &.show {
+      grid-template-columns: repeat(3, auto);
+      li a.dropdown-item {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  ul .dropdown .dropdown-menu {
+    &.show {
+      grid-template-columns: repeat(4, auto);
+      li a.dropdown-item {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  ul .dropdown .dropdown-menu {
+    &.show {
+      grid-template-columns: repeat(3, auto);
+    }
+  }
+}
+
 @media (min-width: 1200px) {
   .main {
     &__populars {
