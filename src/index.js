@@ -9,6 +9,8 @@ import PopularFilms from './js/defaultFilms';
 import Slider from './js/sliderHeader';
 import DropdownGenres from './js/dropdownGenres';
 import Searching from './js/search';
+import SetLocalStorage from './js/setLocalStorage';
+import GetLocalStorage from './js/getLocalStorage';
 
 let API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
 let weekUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&page=`;
@@ -34,6 +36,13 @@ window.addEventListener('click', e => {
 
   if (
     e.target.classList.contains('net') ||
+    e.target.classList.contains('films')
+  ) {
+    document.querySelector('.library').style.zIndex = '1';
+  }
+
+  if (
+    e.target.classList.contains('net') ||
     e.target.classList.contains('films') ||
     e.target.classList.contains('header__home')
   ) {
@@ -41,6 +50,18 @@ window.addEventListener('click', e => {
       .querySelectorAll('.genre-name')
       .forEach(item => (item.style.display = 'none'));
     new PopularFilms(weekUrl, bgImgLink, filmsByYearLink).init();
+  }
+
+  if (e.target.classList.contains('header__library')) {
+    document.querySelector('.library').style.zIndex = '100';
+  }
+
+  if (e.target.classList.contains('header__watched')) {
+    new GetLocalStorage('watched').init();
+  }
+
+  if (e.target.classList.contains('header__queue')) {
+    new GetLocalStorage('queue').init();
   }
 });
 
@@ -58,9 +79,13 @@ document.querySelector('nav button.btn').addEventListener('click', event => {
   input.value = '';
 });
 
-// window.addEventListener('click', e => {
-//   console.log(e.target);
-// });
+window.addEventListener('click', e => {
+  if (e.target.classList.contains('btn-watched')) {
+    new SetLocalStorage('watched', e.target.dataset.id).init();
+  } else if (e.target.classList.contains('btn-queue')) {
+    new SetLocalStorage('queue', e.target.dataset.id).init();
+  }
+});
 
 // * ID searching
 // 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';

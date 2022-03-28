@@ -41,13 +41,13 @@ export default class PopularFilms {
               <div class="hover-text">
             <button type="button" data-id="${
               film.id
-            }" class="btn btn-outline-light">add to Watched</button>
+            }" class="btn btn-watched btn-outline-light">add to Watched</button>
             <button type="button" data-id="${
               film.id
-            }" class="btn btn-outline-light">add to Queue</button>
+            }" class="btn btn-queue btn-outline-light">add to Queue</button>
             <button type="button" data-id="${
               film.id
-            }" class="btn btn-outline-light">watch</button>
+            }" class="btn btn-watch btn-outline-light">watch</button>
               </div>
             </div>
           </div>
@@ -114,13 +114,13 @@ export default class PopularFilms {
                       <div class="hover-text">
                         <button type="button" data-id="${
                           film.id
-                        }" class="btn btn-outline-light">add to Watched</button>
+                        }" class="btn btn-watched btn-outline-light">add to Watched</button>
                         <button type="button" data-id="${
                           film.id
-                        }" class="btn btn-outline-light">add to Queue</button>
+                        }" class="btn btn-queue btn-outline-light">add to Queue</button>
                         <button type="button" data-id="${
                           film.id
-                        }" class="btn btn-outline-light">watch</button>
+                        }" class="btn btn-watch btn-outline-light">watch</button>
                       </div>
                     </div>
                   </div>
