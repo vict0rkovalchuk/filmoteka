@@ -42,12 +42,27 @@ export default class Searching {
         ? (movieReleaseData = film.release_date)
         : (movieReleaseData = film.first_air_date);
       this.list.innerHTML += `<li class="item">
-      <div class="item__img">
-        <img
-          src="${this.bgImgLink}${film.poster_path}"
-          alt="${movieTitle}"
-        />
+
+    <div class="item__img">
+      <img
+        src="${this.bgImgLink + film.poster_path}"
+        alt="${movieTitle}"
+      />
+      <div class="hover-effect">
+        <div class="hover-text">
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-watched btn-outline-light">add to Watched</button>
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-queue btn-outline-light">add to Queue</button>
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-watch btn-outline-light">watch</button>
+        </div>
       </div>
+    </div>
+
       <div class="item__descr">
         <div class="item__title">${movieTitle}</div>
         <div class="item__info">
@@ -117,12 +132,27 @@ export default class Searching {
               btnItem.insertAdjacentHTML(
                 'beforebegin',
                 `<li class="item">
+
                 <div class="item__img">
-                  <img 
-                    src="${this.bgImgLink + film.poster_path}"
-                    alt="img"
-                  />
+                <img
+                  src="${this.bgImgLink + film.poster_path}"
+                  alt="${movieTitle}"
+                />
+                <div class="hover-effect">
+                  <div class="hover-text">
+                <button type="button" data-id="${
+                  film.id
+                }" class="btn btn-watched btn-outline-light">add to Watched</button>
+                <button type="button" data-id="${
+                  film.id
+                }" class="btn btn-queue btn-outline-light">add to Queue</button>
+                <button type="button" data-id="${
+                  film.id
+                }" class="btn btn-watch btn-outline-light">watch</button>
+                  </div>
                 </div>
+              </div>
+
                 <div class="item__descr">
                   <div class="item__title">${movieTitle}</div>
                   <div class="item__info">

@@ -65,12 +65,26 @@ export default class GenreList {
         ? (movieReleaseData = film.release_date)
         : (movieReleaseData = film.first_air_date);
       this.list.innerHTML += `<li class="item">
-      <div class="item__img">
-        <img
-          src="https://image.tmdb.org/t/p/w500/${film.poster_path}"
-          alt="${movieTitle}"
-        />
+    <div class="item__img">
+      <img
+        src="https://image.tmdb.org/t/p/w500/${film.poster_path}"
+        alt="${movieTitle}"
+      />
+      <div class="hover-effect">
+        <div class="hover-text">
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-watched btn-outline-light">add to Watched</button>
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-queue btn-outline-light">add to Queue</button>
+      <button type="button" data-id="${
+        film.id
+      }" class="btn btn-watch btn-outline-light">watch</button>
+        </div>
       </div>
+    </div>
+
       <div class="item__descr">
         <div class="item__title">${movieTitle}</div>
         <div class="item__info">

@@ -32,9 +32,11 @@ document.querySelectorAll('.dropdown-toggle').forEach(item => {
 });
 
 window.addEventListener('click', e => {
-  if (e.target !== document.querySelector('.dropdown-toggle')) {
-    document.querySelector('.dropdown-toggle').classList.remove('toggle-arrow');
-  }
+  document.querySelectorAll('.dropdown-toggle').forEach(item => {
+    if (e.target !== item) {
+      item.classList.remove('toggle-arrow');
+    }
+  });
 
   if (
     e.target.classList.contains('net') ||
@@ -90,12 +92,3 @@ window.addEventListener('click', e => {
     new SetLocalStorage('queue', e.target.dataset.id).init();
   }
 });
-
-// * ID searching
-// 'https://api.themoviedb.org/3/movie/551?api_key=fb2d223cbf586b1c9599530eaa26a8db';
-
-fetch(
-  'https://api.themoviedb.org/3/movie/370172?api_key=fb2d223cbf586b1c9599530eaa26a8db'
-)
-  .then(res => res.json())
-  .then(data => console.log(data));
