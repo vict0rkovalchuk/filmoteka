@@ -9,6 +9,20 @@
         padding-bottom: 25px;
       }
     }
+    .about {
+      display: none;
+    }
+  }
+  &__filminfo-title {
+    margin: 0;
+    margin-bottom: 16px;
+  }
+
+  &__filminfo-releasedata,
+  &__filminfo-revenue,
+  &__filminfo-runtime,
+  &__filminfo-tagline {
+    margin-top: 7px;
   }
   &__populars {
     padding: 0;

@@ -11,6 +11,7 @@ import DropdownGenres from './js/dropdownGenres';
 import Searching from './js/search';
 import SetLocalStorage from './js/setLocalStorage';
 import GetLocalStorage from './js/getLocalStorage';
+import SingleItemInfo from './js/singleItemInfo';
 
 let API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
 let weekUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&page=`;
@@ -42,6 +43,7 @@ window.addEventListener('click', e => {
     e.target.classList.contains('net') ||
     e.target.classList.contains('films')
   ) {
+    document.querySelector('.about').style.display = 'none';
     document.querySelector('.library').style.zIndex = '1';
   }
 
@@ -50,6 +52,7 @@ window.addEventListener('click', e => {
     e.target.classList.contains('films') ||
     e.target.classList.contains('header__home')
   ) {
+    document.querySelector('.about').style.display = 'none';
     document
       .querySelectorAll('.genre-name')
       .forEach(item => (item.style.display = 'none'));
@@ -61,17 +64,36 @@ window.addEventListener('click', e => {
   }
 
   if (e.target.classList.contains('header__watched')) {
+    document.querySelector('.about').style.display = 'none';
     new GetLocalStorage('watched').init();
   }
 
   if (e.target.classList.contains('header__queue')) {
     new GetLocalStorage('queue').init();
   }
+
+  if (
+    e.target.classList.contains('item__title') ||
+    e.target.classList.contains('btn-watch') ||
+    e.target.classList.contains('slider-item')
+  ) {
+    document
+      .querySelectorAll('.genre-name')
+      .forEach(item => (item.style.display = 'none'));
+    document
+      .querySelectorAll('.pagination')
+      .forEach(item => (item.style.display = 'none'));
+    new SingleItemInfo(
+      `https://api.themoviedb.org/3/movie/${e.target.dataset.id}?api_key=fb2d223cbf586b1c9599530eaa26a8db`,
+      `https://api.themoviedb.org/3/movie/${e.target.dataset.id}/images?api_key=fb2d223cbf586b1c9599530eaa26a8db`
+    ).init();
+  }
 });
 
 document.querySelectorAll('nav button.btn').forEach((item, index) => {
   item.addEventListener('click', event => {
     event.preventDefault();
+    document.querySelector('.about').style.display = 'none';
     document
       .querySelectorAll('.genre-name')
       .forEach(item => (item.style.display = 'none'));
@@ -92,3 +114,21 @@ window.addEventListener('click', e => {
     new SetLocalStorage('queue', e.target.dataset.id).init();
   }
 });
+
+// fetch(
+//   `https://api.themoviedb.org/3/movie/497?api_key=fb2d223cbf586b1c9599530eaa26a8db`
+// )
+//   .then(res => res.json())
+//   .then(film => {
+//     console.log(film);
+//   })
+//   .catch(err => alert(err));
+
+// fetch(
+//   `https://api.themoviedb.org/3/movie/505026/images?api_key=fb2d223cbf586b1c9599530eaa26a8db`
+// )
+//   .then(res => res.json())
+//   .then(film => {
+//     console.log(film);
+//   })
+//   .catch(err => alert(err));

@@ -59,6 +59,7 @@ export default class DropdownGenres {
         document.querySelectorAll('.dropdown-item').forEach(item => {
           // console.log(document.querySelectorAll('.pagination'));
           item.addEventListener('click', event => {
+            document.querySelector('.about').style.display = 'none';
             let id;
             id = event.target.dataset.id;
 

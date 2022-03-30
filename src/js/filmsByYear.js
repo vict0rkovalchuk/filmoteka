@@ -77,7 +77,7 @@ export default class FilmsByYear {
     </div>
 
       <div class="item__descr">
-        <div class="item__title">${movieTitle}</div>
+        <div class="item__title" data-id="${film.id}">${movieTitle}</div>
         <div class="item__info">
           <div class="item__releasedata" data-release='${new Date(
             movieReleaseData

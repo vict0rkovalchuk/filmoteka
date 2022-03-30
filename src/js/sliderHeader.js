@@ -15,9 +15,9 @@ export default class Slider {
         let slick = document.querySelector('.popularfilms-slider');
 
         data.results.splice(0, 12).forEach(film => {
-          slick.innerHTML += ` <div class="item"><img src='${
+          slick.innerHTML += ` <div class="item"><img class="slider-item" src='${
             this.bgImgLink + film.poster_path
-          }' alt='img'/></div>`;
+          }' data-id=${film.id} alt='img'/></div>`;
         });
         $('.popularfilms-slider').slick({
           autoplay: true,
