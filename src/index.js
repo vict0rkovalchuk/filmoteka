@@ -116,24 +116,6 @@ window.addEventListener('click', e => {
   }
 });
 
-// fetch(
-//   `https://api.themoviedb.org/3/movie/497?api_key=fb2d223cbf586b1c9599530eaa26a8db`
-// )
-//   .then(res => res.json())
-//   .then(film => {
-//     console.log(film);
-//   })
-//   .catch(err => alert(err));
-
-// fetch(
-//   `https://api.themoviedb.org/3/movie/505026/images?api_key=fb2d223cbf586b1c9599530eaa26a8db`
-// )
-//   .then(res => res.json())
-//   .then(film => {
-//     console.log(film);
-//   })
-//   .catch(err => alert(err));
-
 import Gallery from './js/imagesSlider';
 
 new Gallery().addListener();
