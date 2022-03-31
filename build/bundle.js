@@ -21493,7 +21493,7 @@ var FilmsByYear = /*#__PURE__*/function () {
         var movieReleaseData;
         film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
         film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-        _this3.list.innerHTML += "<li class=\"item\">\n\n\n    <div class=\"item__img\">\n      <img\n        src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+        _this3.list.innerHTML += "<li class=\"item\">\n\n\n    <div class=\"item__img\">\n      <img\n        src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
       });
     }
   }, {
@@ -21687,7 +21687,7 @@ var Slider = /*#__PURE__*/function () {
         // console.log(data);
         var slick = document.querySelector('.popularfilms-slider');
         data.results.splice(0, 12).forEach(function (film) {
-          slick.innerHTML += " <div class=\"item\"><img src='".concat(_this.bgImgLink + film.poster_path, "' alt='img'/></div>");
+          slick.innerHTML += " <div class=\"item\"><img class=\"slider-item\" src='".concat(_this.bgImgLink + film.poster_path, "' data-id=").concat(film.id, " alt='img'/></div>");
         });
         jquery_default()('.popularfilms-slider').slick({
           autoplay: true,
@@ -21818,7 +21818,7 @@ var GenreList = /*#__PURE__*/function () {
         var movieReleaseData;
         film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
         film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-        _this2.list.innerHTML += "<li class=\"item\">\n    <div class=\"item__img\">\n      <img\n        src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+        _this2.list.innerHTML += "<li class=\"item\">\n    <div class=\"item__img\">\n      <img\n        src=\"https://image.tmdb.org/t/p/w500/".concat(film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <a href=\"#main\" class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</a>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
       });
     }
   }, {
@@ -21936,6 +21936,7 @@ var DropdownGenres = /*#__PURE__*/function () {
         document.querySelectorAll('.dropdown-item').forEach(function (item) {
           // console.log(document.querySelectorAll('.pagination'));
           item.addEventListener('click', function (event) {
+            document.querySelector('.about').style.display = 'none';
             var id;
             id = event.target.dataset.id;
             var newGenreList = new GenreList("https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&with_genres=", id, "https://image.tmdb.org/t/p/w500/");
@@ -22012,7 +22013,7 @@ var Searching = /*#__PURE__*/function () {
         var movieReleaseData;
         film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
         film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-        _this2.list.innerHTML += "<li class=\"item\">\n\n    <div class=\"item__img\">\n      <img\n        src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
+        _this2.list.innerHTML += "<li class=\"item\">\n\n    <div class=\"item__img\">\n      <img\n        src=\"".concat(_this2.bgImgLink + film.poster_path, "\"\n        alt=\"").concat(movieTitle, "\"\n      />\n      <div class=\"hover-effect\">\n        <div class=\"hover-text\">\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n      <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n        </div>\n      </div>\n    </div>\n\n      <div class=\"item__descr\">\n        <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n        <div class=\"item__info\">\n          <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'>").concat(new Date(movieReleaseData).getFullYear(), ",&ensp;</div>\n          <div class=\"item__country\">\n        Rating: ").concat(film.vote_average, "/10\n          </div>\n        </div>\n      </div>\n    </li>");
       });
 
       if (data.total_pages > 1) {
@@ -22053,7 +22054,7 @@ var Searching = /*#__PURE__*/function () {
             var movieReleaseData;
             film.original_title ? movieTitle = film.original_title : movieTitle = film.original_name;
             film.release_date ? movieReleaseData = film.release_date : movieReleaseData = film.first_air_date;
-            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n\n                <div class=\"item__img\">\n                <img\n                  src=\"".concat(_this3.bgImgLink + film.poster_path, "\"\n                  alt=\"").concat(movieTitle, "\"\n                />\n                <div class=\"hover-effect\">\n                  <div class=\"hover-text\">\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n                  </div>\n                </div>\n              </div>\n\n                <div class=\"item__descr\">\n                  <div class=\"item__title\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
+            btnItem.insertAdjacentHTML('beforebegin', "<li class=\"item\">\n\n                <div class=\"item__img\">\n                <img\n                  src=\"".concat(_this3.bgImgLink + film.poster_path, "\"\n                  alt=\"").concat(movieTitle, "\"\n                />\n                <div class=\"hover-effect\">\n                  <div class=\"hover-text\">\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watched btn-outline-light\">add to Watched</button>\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-queue btn-outline-light\">add to Queue</button>\n                <button type=\"button\" data-id=\"").concat(film.id, "\" class=\"btn btn-watch btn-outline-light\">watch</button>\n                  </div>\n                </div>\n              </div>\n\n                <div class=\"item__descr\">\n                  <div class=\"item__title\" data-id=\"").concat(film.id, "\">").concat(movieTitle, "</div>\n                  <div class=\"item__info\">\n                    <div class=\"item__releasedata\" data-release='").concat(new Date(movieReleaseData).getFullYear(), "'><span>").concat(new Date(movieReleaseData).getFullYear(), "</span>,&ensp;</div>\n                    <div class=\"item__country\">\n                  Rating: ").concat(film.vote_average, "/10\n                    </div>\n                  </div>\n                </div>\n              </li>"));
           });
           new FilmsByYear(_this3.filmsByYearLink, _this3.bgImgLink).fetchDefaultFilms();
         })["catch"](function (err) {
@@ -22176,7 +22177,88 @@ var GetLocalStorage = /*#__PURE__*/function () {
 }();
 
 
+;// CONCATENATED MODULE: ./src/js/singleItemInfo.js
+function singleItemInfo_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function singleItemInfo_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function singleItemInfo_createClass(Constructor, protoProps, staticProps) { if (protoProps) singleItemInfo_defineProperties(Constructor.prototype, protoProps); if (staticProps) singleItemInfo_defineProperties(Constructor, staticProps); return Constructor; }
+
+var SingleItemInfo = /*#__PURE__*/function () {
+  function SingleItemInfo(aboutFilmLink, imagesLink) {
+    singleItemInfo_classCallCheck(this, SingleItemInfo);
+
+    this.aboutFilmLink = aboutFilmLink;
+    this.imagesLink = imagesLink;
+    this.list = document.querySelector('.main .main__populars');
+    this.about = document.querySelector('.about');
+    this.h4 = document.querySelector('.about h4');
+    this.img = document.querySelector('.main__filminfo-poster .img img');
+    this.overview = document.querySelector('.main__filminfo-overview .overview');
+    this.fotorama = document.querySelector('.main__filminfo-overview .fotorama-slider');
+    this.genreList = document.querySelector('.main__filminfo-about ul.main__filminfo-genres');
+    this.year = document.querySelector('.main__filminfo-descr .main__filminfo-releasedata span');
+    this.revenue = document.querySelector('.main__filminfo-descr .main__filminfo-revenue span');
+    this.runtime = document.querySelector('.main__filminfo-descr .main__filminfo-runtime span');
+    this.tagline = document.querySelector('.main__filminfo-descr .main__filminfo-tagline span');
+  }
+
+  singleItemInfo_createClass(SingleItemInfo, [{
+    key: "fetchAboutFilmInfo",
+    value: function fetchAboutFilmInfo() {
+      var _this = this;
+
+      fetch(this.aboutFilmLink).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this.h4.textContent = data.original_title;
+        _this.img.src = "https://image.tmdb.org/t/p/w500".concat(data.poster_path);
+        _this.img.alt = "".concat(data.original_title);
+        _this.overview.textContent = data.overview;
+        _this.genreList.innerHTML = '';
+        data.genres.forEach(function (item) {
+          _this.genreList.innerHTML += "<li class=\"item\">".concat(item.name, "</li>");
+        });
+        _this.year.textContent = new Date(data.release_date).getFullYear();
+        _this.revenue.textContent = data.revenue;
+        _this.runtime.textContent = "".concat(data.runtime, "min");
+        _this.tagline.textContent = data.tagline;
+      })["catch"](function (err) {
+        return alert(err);
+      });
+    }
+  }, {
+    key: "fetchFilmImages",
+    value: function fetchFilmImages() {
+      var _this2 = this;
+
+      fetch(this.imagesLink).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        _this2.fotorama.textContent = '';
+        data.backdrops.splice(0, 12).forEach(function (item) {
+          _this2.fotorama.innerHTML += "<img src=\"https://image.tmdb.org/t/p/w500".concat(item.file_path, "\" />");
+        });
+      })["catch"](function (err) {
+        return alert(err);
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.about.style.display = 'block';
+      this.list.innerHTML = '';
+      this.fetchAboutFilmInfo();
+      this.fetchFilmImages();
+    }
+  }]);
+
+  return SingleItemInfo;
+}();
+
+
 ;// CONCATENATED MODULE: ./src/index.js
+
 
 
 
@@ -22211,10 +22293,12 @@ window.addEventListener('click', function (e) {
   });
 
   if (e.target.classList.contains('net') || e.target.classList.contains('films')) {
+    document.querySelector('.about').style.display = 'none';
     document.querySelector('.library').style.zIndex = '1';
   }
 
   if (e.target.classList.contains('net') || e.target.classList.contains('films') || e.target.classList.contains('header__home')) {
+    document.querySelector('.about').style.display = 'none';
     document.querySelectorAll('.genre-name').forEach(function (item) {
       return item.style.display = 'none';
     });
@@ -22226,16 +22310,28 @@ window.addEventListener('click', function (e) {
   }
 
   if (e.target.classList.contains('header__watched')) {
+    document.querySelector('.about').style.display = 'none';
     new GetLocalStorage('watched').init();
   }
 
   if (e.target.classList.contains('header__queue')) {
     new GetLocalStorage('queue').init();
   }
+
+  if (e.target.classList.contains('item__title') || e.target.classList.contains('btn-watch') || e.target.classList.contains('slider-item')) {
+    document.querySelectorAll('.genre-name').forEach(function (item) {
+      return item.style.display = 'none';
+    });
+    document.querySelectorAll('.pagination').forEach(function (item) {
+      return item.style.display = 'none';
+    });
+    new SingleItemInfo("https://api.themoviedb.org/3/movie/".concat(e.target.dataset.id, "?api_key=fb2d223cbf586b1c9599530eaa26a8db"), "https://api.themoviedb.org/3/movie/".concat(e.target.dataset.id, "/images?api_key=fb2d223cbf586b1c9599530eaa26a8db")).init();
+  }
 });
 document.querySelectorAll('nav button.btn').forEach(function (item, index) {
   item.addEventListener('click', function (event) {
     event.preventDefault();
+    document.querySelector('.about').style.display = 'none';
     document.querySelectorAll('.genre-name').forEach(function (item) {
       return item.style.display = 'none';
     });
@@ -22250,7 +22346,22 @@ window.addEventListener('click', function (e) {
   } else if (e.target.classList.contains('btn-queue')) {
     new SetLocalStorage('queue', e.target.dataset.id).init();
   }
-});
+}); // fetch(
+//   `https://api.themoviedb.org/3/movie/497?api_key=fb2d223cbf586b1c9599530eaa26a8db`
+// )
+//   .then(res => res.json())
+//   .then(film => {
+//     console.log(film);
+//   })
+//   .catch(err => alert(err));
+// fetch(
+//   `https://api.themoviedb.org/3/movie/505026/images?api_key=fb2d223cbf586b1c9599530eaa26a8db`
+// )
+//   .then(res => res.json())
+//   .then(film => {
+//     console.log(film);
+//   })
+//   .catch(err => alert(err));
 })();
 
 /******/ })()

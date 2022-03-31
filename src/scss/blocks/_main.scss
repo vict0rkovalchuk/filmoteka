@@ -17,6 +17,27 @@
     margin: 0;
     margin-bottom: 16px;
   }
+  &__filminfo .img {
+    img {
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+        -23px 0 20px -23px rgba(0, 0, 0, 0.8),
+        23px 0 20px -23px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    }
+  }
+  &__filminfo-overview {
+    .fotorama {
+      img {
+        position: relative;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 1),
+          -23px 0 20px -23px rgba(0, 0, 0, 0.8),
+          23px 0 20px -23px rgba(0, 0, 0, 0.8),
+          0 0 40px rgba(0, 0, 0, 0.1) inset;
+        &:hover {
+          transform: scale(1.03);
+        }
+      }
+    }
+  }
 
   &__filminfo-releasedata,
   &__filminfo-revenue,

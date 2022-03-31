@@ -69,6 +69,7 @@ window.addEventListener('click', e => {
   }
 
   if (e.target.classList.contains('header__queue')) {
+    document.querySelector('.about').style.display = 'none';
     new GetLocalStorage('queue').init();
   }
 
@@ -132,3 +133,7 @@ window.addEventListener('click', e => {
 //     console.log(film);
 //   })
 //   .catch(err => alert(err));
+
+import Gallery from './js/imagesSlider';
+
+new Gallery().addListener();
