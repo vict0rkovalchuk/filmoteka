@@ -22257,6 +22257,107 @@ var SingleItemInfo = /*#__PURE__*/function () {
 }();
 
 
+;// CONCATENATED MODULE: ./src/js/imagesSlider.js
+function imagesSlider_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function imagesSlider_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function imagesSlider_createClass(Constructor, protoProps, staticProps) { if (protoProps) imagesSlider_defineProperties(Constructor.prototype, protoProps); if (staticProps) imagesSlider_defineProperties(Constructor, staticProps); return Constructor; }
+
+var Gallery = /*#__PURE__*/function () {
+  function Gallery() {
+    imagesSlider_classCallCheck(this, Gallery);
+
+    this.refs = {
+      gallery: document.querySelector('.fotorama-slider'),
+      modalRef: document.querySelector('.lightbox'),
+      imageRef: document.querySelector('.lightbox__image'),
+      prev: document.querySelector('.btn-prev'),
+      next: document.querySelector('.btn-next'),
+      overlayRef: document.querySelector('.lightbox__overlay'),
+      btn: document.querySelector('.lightbox__button')
+    };
+  }
+
+  imagesSlider_createClass(Gallery, [{
+    key: "addListener",
+    value: function addListener() {
+      this.refs.gallery.addEventListener('click', ongalleryClick);
+
+      function ongalleryClick(event) {
+        event.preventDefault();
+        var slides = document.querySelectorAll('.fotorama-slider img');
+        var arr = Array.from(slides);
+
+        if (event.target.nodeName !== 'IMG') {
+          return;
+        }
+
+        document.querySelector('.lightbox').classList.add('is-open');
+        document.querySelector('.lightbox__image').src = event.target.src;
+        {
+          var slideIndex = arr.indexOf(event.target);
+
+          var activeSlide = function activeSlide(n) {
+            document.querySelector('.lightbox__image').src = slides[n].src;
+          };
+
+          var nextSlide = function nextSlide() {
+            if (slideIndex == slides.length - 1) {
+              slideIndex = 0;
+              activeSlide(slideIndex);
+            } else {
+              slideIndex++;
+              activeSlide(slideIndex);
+            }
+          };
+
+          var prevSlide = function prevSlide() {
+            if (slideIndex == 0) {
+              slideIndex = slides.length - 1;
+              activeSlide(slideIndex);
+            } else {
+              slideIndex--;
+              activeSlide(slideIndex);
+            }
+          };
+
+          document.querySelector('.btn-next').addEventListener('click', nextSlide);
+          document.querySelector('.btn-prev').addEventListener('click', prevSlide);
+          window.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowRight') {
+              nextSlide();
+            }
+          });
+          window.addEventListener('keydown', function (event) {
+            if (event.code === 'ArrowLeft') {
+              prevSlide();
+            }
+          });
+        }
+        window.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            document.querySelector('.lightbox').classList.remove('is-open');
+            document.body.style.overflow = '';
+          }
+        });
+        document.querySelector('.lightbox__overlay').addEventListener('click', function () {
+          document.querySelector('.lightbox').classList.remove('is-open');
+          document.body.style.overflow = '';
+        });
+        document.querySelector('.lightbox__button').addEventListener('click', function () {
+          document.querySelector('.lightbox').classList.remove('is-open');
+          document.body.style.overflow = '';
+        });
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  }]);
+
+  return Gallery;
+}();
+
+
 ;// CONCATENATED MODULE: ./src/index.js
 
 
@@ -22315,6 +22416,7 @@ window.addEventListener('click', function (e) {
   }
 
   if (e.target.classList.contains('header__queue')) {
+    document.querySelector('.about').style.display = 'none';
     new GetLocalStorage('queue').init();
   }
 
@@ -22362,6 +22464,9 @@ window.addEventListener('click', function (e) {
 //     console.log(film);
 //   })
 //   .catch(err => alert(err));
+
+
+new Gallery().addListener();
 })();
 
 /******/ })()
