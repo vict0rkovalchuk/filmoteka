@@ -118,4 +118,4 @@ window.addEventListener('click', e => {
 
 import Gallery from './js/imagesSlider';
 
-new Gallery().addListener();
+new Gallery('fotorama-slider').init();
