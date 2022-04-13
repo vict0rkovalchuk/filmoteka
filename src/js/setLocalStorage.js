@@ -11,7 +11,6 @@ export default class SetLocalStorage {
       let arr = JSON.parse(localStorage.getItem(this.nameCollection));
       arr.push(this.id);
       localStorage.setItem(this.nameCollection, JSON.stringify(arr));
-      console.log(arr);
     }
   }
 

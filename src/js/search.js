@@ -13,7 +13,6 @@ export default class Searching {
     fetch(this.url + this.counter)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         document
           .querySelectorAll('.pagination')
           .forEach(item => (item.style.display = 'none'));

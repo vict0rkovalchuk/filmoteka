@@ -33,7 +33,6 @@ export default class GenreList {
     fetch(url)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.renderFilms(data.results);
         new FilmsByYear(
           `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
@@ -50,7 +49,7 @@ export default class GenreList {
         $(`.pagination${this.id}`).css('display', 'block');
         this.renderPagination(data);
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err));
   }
 
   renderFilms(arrResults) {
@@ -124,7 +123,6 @@ export default class GenreList {
 
   nextPage() {
     this.counter += 1;
-    console.log(this.url + this.id + '&page=' + this.counter);
     this.fetchFilms();
     this.input.value = this.counter;
   }
@@ -169,7 +167,6 @@ export default class GenreList {
     this.nextButton.addEventListener('click', this.nextPage.bind(this));
     this.prevButton.addEventListener('click', this.prevPage.bind(this));
     this.input.addEventListener('input', this.inputChange.bind(this));
-    // window.addEventListener('load', this.fetchFilms.bind(this));
   }
 
   init() {

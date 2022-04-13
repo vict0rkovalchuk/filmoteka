@@ -5,7 +5,6 @@
 .popularfilms-slider {
   padding: 10px 0 5px 0;
   .item {
-    // padding: 0;
     img {
       margin: 0 auto;
       width: 162px;
@@ -30,15 +29,12 @@
         border: none;
         border-radius: 100%;
         background-color: #0d2637;
-        // background-color: #2f364a;
-        // border: 3px solid #0d2637;
         text-indent: -9999px;
       }
     }
     li.slick-active button {
       background-color: #2f364a;
       border: 3px solid #0d2637;
-      // background-color: #0d2637;
     }
   }
 }

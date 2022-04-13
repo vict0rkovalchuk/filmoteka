@@ -12,6 +12,7 @@ import Searching from './js/search';
 import SetLocalStorage from './js/setLocalStorage';
 import GetLocalStorage from './js/getLocalStorage';
 import SingleItemInfo from './js/singleItemInfo';
+import Gallery from './js/imagesSlider';
 
 let API_KEY = 'fb2d223cbf586b1c9599530eaa26a8db';
 let weekUrl = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&page=`;
@@ -115,7 +116,5 @@ window.addEventListener('click', e => {
     new SetLocalStorage('queue', e.target.dataset.id).init();
   }
 });
-
-import Gallery from './js/imagesSlider';
 
 new Gallery('fotorama-slider').init();

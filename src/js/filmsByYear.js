@@ -30,7 +30,6 @@ export default class FilmsByYear {
     fetch(`${url + releaseData}&page=${counter}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         this.list.innerHTML = '';
         this.renderFilms(data.results);
         document
@@ -39,7 +38,7 @@ export default class FilmsByYear {
         $('.pagination-year').css('display', 'block');
         this.renderPagination(data);
       })
-      .catch(err => console.log(err));
+      .catch(err => alert(err));
   }
 
   renderFilms(arrResults) {
@@ -115,7 +114,6 @@ export default class FilmsByYear {
 
   nextPage() {
     this.counter += 1;
-    console.log(releaseData);
     this.fetchFilms(
       `https://api.themoviedb.org/3/discover/movie?api_key=fb2d223cbf586b1c9599530eaa26a8db&year=`,
       releaseData,
@@ -172,7 +170,6 @@ export default class FilmsByYear {
     this.nextButton.addEventListener('click', this.nextPage.bind(this));
     this.prevButton.addEventListener('click', this.prevPage.bind(this));
     this.input.addEventListener('input', this.inputChange.bind(this));
-    // window.addEventListener('load', this.fetchFilms.bind(this));
   }
 
   init() {

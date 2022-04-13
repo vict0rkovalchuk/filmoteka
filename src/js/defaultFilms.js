@@ -12,7 +12,6 @@ export default class PopularFilms {
     fetch(this.weekUrl + this.counter)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         let ul = document.querySelector('.main .main__populars');
         ul.innerHTML = '';
         document

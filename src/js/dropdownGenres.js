@@ -1,6 +1,4 @@
-import $ from 'jquery';
 import GenreList from './genreList';
-import FilmsByYear from './filmsByYear';
 
 export default class DropdownGenres {
   constructor(genresLink) {
@@ -11,7 +9,6 @@ export default class DropdownGenres {
     fetch(this.genresLink)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         let ulGenres = document.querySelectorAll('.genres .dropdown-menu');
 
         data.genres.forEach(genre => {
@@ -57,7 +54,6 @@ export default class DropdownGenres {
         });
 
         document.querySelectorAll('.dropdown-item').forEach(item => {
-          // console.log(document.querySelectorAll('.pagination'));
           item.addEventListener('click', event => {
             document.querySelector('.about').style.display = 'none';
             let id;

@@ -10,8 +10,6 @@ export default class Slider {
     fetch(this.dayUrl)
       .then(res => res.json())
       .then(data => {
-        // console.log(data);
-
         let slick = document.querySelector('.popularfilms-slider');
 
         data.results.splice(0, 12).forEach(film => {
